@@ -1,7 +1,6 @@
 [submodule "RL-Dummy-Classes-v3"]
 	path = RL-Dummy-Classes-v3
 	url = https://github.com/ardivee/RL-Dummy-Classes-v3
-	
 [submodule "RL_DummyAssets"]
 	path = RL_DummyAssets
 	url = https://github.com/Martinii89/RL_DummyAssets
