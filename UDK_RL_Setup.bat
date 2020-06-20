@@ -1,8 +1,6 @@
 @ECHO OFF
 chcp 65001 >NUL
 
-GOTO TestTestTestTest
-
 REM This is a comment. Welcome to the script!
 
 ECHO. 
@@ -132,8 +130,6 @@ REM ############################################################################
 :Start
 ECHO. 
 
-REM GOTO TestTestTestTest
-
 REM ############################################################################
 
 REM             Print out some info and a friendly reminder
@@ -150,7 +146,8 @@ call :c 02 "##################################"&call :c 07 " STEP 1 "&call :c 02
 ECHO.
 ECHO Please take a minute to review this script (but don't change it!)
 ECHO.
-ECHO .BAT files you don't understand can do terrible things
+call :c 07 ".BAT files you don't understand can do "&call :c 0C "terrible"&call :c 07 " things"
+ECHO.
 ECHO.
 ECHO You can stop at any point with Ctrl+C or by closing the window
 ECHO.
@@ -190,7 +187,8 @@ ECHO.
 
 REM Look for the UDK Installer program and start it
 if exist UDKInstall-2013-02-BETA.exe (
-    ECHO Got it!
+    ECHO Got it! Opening the installer . . .
+    ECHO.
     START UDKInstall-2013-02-BETA.exe
     GOTO GotUDKInstaller
 ) else (
@@ -215,13 +213,13 @@ IF "%udkdownload%" == "y" (
     PAUSE
     GOTO NotUDKInstaller
 )
-GOTO :eof
 
 :GotUDKInstaller
 ECHO Continue onward once UDK finishes installing. Close the program . . .
 ECHO.
 PAUSE
 :SkipUDKInstaller
+
 
 REM ############################################################################
 
@@ -233,6 +231,7 @@ call :c 02 "##################################"&call :c 07 " STEP 3 "&call :c 02
 :NotUDK
 ECHO.
 SET /p udkdir="Enter Install Location (ex. C:\UDK\RLMods): "
+ECHO.
 ECHO Looking in %udkdir% . . .
 ECHO.
 
@@ -246,7 +245,7 @@ IF EXIST "%udkdir%\Binaries\Win64\UDK.exe" (
 )
 
 :GotUDK
-
+TIMEOUT /T 1 > NUL
 
 ECHO.
 REM Check for DummyClasses in a few places
@@ -255,6 +254,7 @@ call :c 02 "##################################"&call :c 07 " STEP 4 "&call :c 02
 ECHO.
 ECHO Looking for RL Dummy Classes . . .
 ECHO.
+TIMEOUT /T 1 > NUL
 
 SET classesdir=
 IF EXIST "%cd%\RL-Dummy-Classes-v3\README.md" (
@@ -272,8 +272,13 @@ IF EXIST "%cd%\RL-Dummy-Classes-v3\README.md" (
     ECHO Got it!
     ECHO.
     GOTO GotClasses
+) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3-master\README.md" (
+    SET classesdir=RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3-master
+    ECHO Got it!
+    ECHO.
+    GOTO GotClasses
 ) ELSE (
-    ECHO Folder not found. Please download it to %cd%
+    ECHO Folder not found. Please download it to %cd% and unzip it . . .
     START /Wait "" "%cd%\Goodies\RL-Dummy-Classes-v3_Download.url"
     PAUSE
     GOTO NotClasses
@@ -284,28 +289,307 @@ IF EXIST "%cd%\RL-Dummy-Classes-v3\README.md" (
 REM Copy DummyClasses into the UDK install folder using Robocopy
 
 ECHO Copying Dummy Classes into UDK . . .
-ROBOCOPY %cd%\%classesdir%\ %udkdir%\Development\Src /E /NFL /NDL /NJH /xf README.md /xd .git
+ROBOCOPY "%cd%\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
 ECHO ------------------------------------------------------------------------------
 ECHO.
+TIMEOUT /T 1 > NUL
 
-:TestTestTestTest
-ECHO Skipping a bunch of stuff . . .
+
+
+REM ############################################################################
+
+REM                       Modify several Unreal files
+
+REM ############################################################################
+
+call :c 02 "##################################"&call :c 07 " STEP 5 "&call :c 02 "##################################" /n
+ECHO.
 
 REM Modify DefaultEngine.ini with additions from DummyClasses
 
-ECHO Modifying DefaultEngine.ini
+ECHO Modifying DefaultEngine.ini . . .
+ECHO.
 pushd %~dp0
-cscript //NoLogo Goodies\ModifyDefaultEngine.vbs %udkdir%\UDKGame\Config\DefaultEngine.ini
+cscript //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\DefaultEngine.ini"
+TIMEOUT /T 1 > NUL
+
+REM Modify StaticMeshActor.uc
+
+ECHO Modifying StaticMeshActor.uc . . .
+ECHO.
+pushd %~dp0
+cscript //NoLogo Goodies\ModifyStaticMeshActor.vbs "%udkdir%\Development\Src\Engine\Classes\StaticMeshActor.uc"
+TIMEOUT /T 1 > NUL
+
+REM Modify Actor.uc
+
+ECHO Modifying Actor.uc . . .
+ECHO.
+pushd %~dp0
+cscript //NoLogo Goodies\ModifyActor.vbs "%udkdir%\Development\Src\Engine\Classes\Actor.uc"
+TIMEOUT /T 1 > NUL
+
+REM Modify PrimitiveComponent.uc
+
+ECHO Modifying PrimitiveComponent.uc . . .
+ECHO.
+pushd %~dp0
+cscript //NoLogo Goodies\ModifyPrimitiveComponent.vbs "%udkdir%\Development\Src\Engine\Classes\PrimitiveComponent.uc"
+TIMEOUT /T 1 > NUL
+
+
+REM ############################################################################
+
+REM                       Set up project folders
+
+REM ############################################################################
+
+call :c 02 "##################################"&call :c 07 " STEP 6 "&call :c 02 "##################################" /n
 
 REM Check for DummyAssets
-REM Move DummyAssets and Park_P
-REM Ask for RL install location (verify)
-REM Set up Maps folder
-REM Add UtopiaOverwrite script
-REM Back up Labs_Utopia_P.upk
-REM Add mods folder to RL
-REM Bring up UDK Frontend for Full Recompile
 
+:NotAssets
+ECHO.
+ECHO Looking for RL Dummy Assets . . .
+ECHO.
+
+SET assetsdir=
+IF EXIST "%cd%\RL_DummyAssets\README.md" (
+    SET assetsdir=RL_DummyAssets
+    ECHO Got it!
+    ECHO.
+    GOTO GotAssets
+) ELSE IF EXIST "%cd%\RL_DummyAssets-master\README.md" (
+    SET assetsdir=RL_DummyAssets-master
+    ECHO Got it!
+    ECHO.
+    GOTO GotAssets
+) ELSE IF EXIST "%cd%\RL_DummyAssets-master\RL_DummyAssets\README.md" (
+    SET assetsdir=RL_DummyAssets-master\RL_DummyAssets
+    ECHO Got it!
+    ECHO.
+    GOTO GotAssets
+) ELSE IF EXIST "%cd%\RL_DummyAssets-master\RL_DummyAssets-master\README.md" (
+    SET assetsdir=RL_DummyAssets-master\RL_DummyAssets-master
+    ECHO Got it!
+    ECHO.
+    GOTO GotAssets
+) ELSE (
+    ECHO Folder not found. Please download it to %cd% and unzip it . . .
+    ECHO.
+    START /Wait "" "%cd%\Goodies\RL_DummyAssets_Download.url"
+    PAUSE
+    GOTO NotAssets
+)
+
+:GotAssets
+
+
+REM Copy DummyAssets into the UDK folder using Robocopy
+
+ECHO Copying Dummy Assets into UDK . . .
+ROBOCOPY "%cd%\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /xf README.md /xd .git
+ECHO ------------------------------------------------------------------------------
+ECHO.
+TIMEOUT /T 1 > NUL
+
+REM Ask for RL install location
+
+:NotRL
+ECHO.
+SET /p rldir="Enter Rocket League Install Location (ex. C:\Program Files (x86)\Steam\steamapps\common\rocketleague): "
+ECHO.
+ECHO Looking in %rldir% . . .
+ECHO.
+
+IF EXIST "%rldir%\Binaries\RocketLeague.exe" (
+    ECHO Got it!
+    GOTO GotRL
+) ELSE (
+    REM Retry if you typed the wrong thing or if it's not there
+    ECHO Not there. Try Steam ^> Right click RL ^> Properties ^> Local Files ^> Browse Local Files
+    GOTO NotRL
+)
+
+:GotRL
+ECHO.
+
+ECHO Creating mods folder in CookedPCConsole . . .
+
+MKDIR "%rldir%\TAGame\CookedPCConsole\mods"
+
+ECHO.
+TIMEOUT /T 1 > NUL
+
+REM Copy DummyAssets into the UDK folder using Robocopy
+
+ECHO Creating backup of Labs_Utopia_P . . .
+ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkdir%\UDKGame\Content\Maps " /NFL /NDL /NJH Labs_Utopia_P.upk
+ECHO ------------------------------------------------------------------------------
+ECHO.
+TIMEOUT /T 1 > NUL
+
+REN "%udkdir%\UDKGame\Content\Maps\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk
+DEL "%udkdir%\UDKGame\Content\Maps\Labs_Utopia_P.upk" > NUL
+ECHO.
+
+REM ############################################################################
+
+REM                    Create a bunch of useful shortcuts
+
+REM ############################################################################
+
+
+REM Create shortcut to CookedPCConsole and put it UDK Maps folder
+ECHO Creating shortcuts to CookedPCConsole . . .
+ECHO.
+
+SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+ECHO sLinkDest = "%udkdir%\UDKGame\Content\Maps\CookedPCConsole.lnk" >> %SCRIPT%
+ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
+ECHO oLink.TargetPath = "%rldir%\TAGame\CookedPCConsole" >> %SCRIPT%
+ECHO oLink.Save >> %SCRIPT%
+
+CSCRIPT /nologo %SCRIPT%
+DEL %SCRIPT%
+
+
+REM Create shortcuts to Steam Workshop and put it UDK Maps and RL Mods folders
+ECHO Creating shortcuts to Steam Workshop . . .
+ECHO.
+SET "scriptdir=%cd%"
+
+CD /D "%rldir%"
+CD ..
+CD ..
+CD workshop
+CD content
+CD "252950"
+SET "workshopdir=%cd%"
+CD /D "%scriptdir%"
+
+SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+ECHO sLinkDest = "%udkdir%\UDKGame\Content\Maps\RLWorkshop.lnk" >> %SCRIPT%
+ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
+ECHO oLink.TargetPath = "%workshopdir%" >> %SCRIPT%
+ECHO oLink.Save >> %SCRIPT%
+
+CSCRIPT /nologo %SCRIPT%
+DEL %SCRIPT%
+
+SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+ECHO sLinkDest = "%rldir%\TAGame\CookedPCConsole\mods\RLWorkshop.lnk" >> %SCRIPT%
+ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
+ECHO oLink.TargetPath = "%workshopdir%" >> %SCRIPT%
+ECHO oLink.Save >> %SCRIPT%
+
+CSCRIPT /nologo %SCRIPT%
+DEL %SCRIPT%
+
+
+REM Create shortcut to UDK Maps folder and put it up a few levels
+ECHO Creating shortcuts to UDK Maps and a good folder structure . . .
+ECHO.
+
+CD "%udkdir%"
+CD ..
+SET "udkrootdir=%cd%"
+MKDIR Workshop
+CD Workshop
+MKDIR Template
+CD ..
+MKDIR Assets
+CD Assets
+MKDIR Textures
+MKDIR Meshes
+CD Meshes
+MKDIR DefaultMap
+MKDIR Test
+CD /D "%scriptdir%"
+
+SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+ECHO sLinkDest = "%udkrootdir%\UDK Maps.lnk" >> %SCRIPT%
+ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
+ECHO oLink.TargetPath = "%udkdir%\UDKGame\Content\Maps" >> %SCRIPT%
+ECHO oLink.Save >> %SCRIPT%
+
+CSCRIPT /nologo %SCRIPT%
+DEL %SCRIPT%
+
+TIMEOUT /T 1 > NUL
+
+ECHO Creating UtopiaOverwrite Script . . .
+ECHO.
+
+PUSHD %~dp0
+cscript //NoLogo Goodies\BuildUtopiaOverwrite.vbs "%udkdir%\UDKGame\Content\Maps" "%rldir%\TAGame\CookedPCConsole\Labs_Utopia_P.upk"
+TIMEOUT /T 1 > NUL
+
+REM ############################################################################
+
+REM               Set up Workshop uploading folder
+
+REM ############################################################################
+
+call :c 02 "##################################"&call :c 07 " STEP 7 "&call :c 02 "##################################" /n
+
+SET steamcmddownload=
+SET /p steamcmddownload="Would you like to download SteamCMD (for uploading maps)? (y/n): "
+    ECHO.
+IF "%steamcmddownload%" == "y" (
+    START "" "%cd%\Goodies\SteamCmd_Download.url"
+    ECHO Downloading . . .
+    ECHO.
+    ECHO Please refer to a guide for how to use SteamCmd . . .
+    ECHO.
+    PAUSE
+    ECHO.
+)
+
+ECHO Creating Template Workshop Folder . . .
+ECHO.
+PUSHD %~dp0
+cscript //NoLogo Goodies\BuildTemplateVDF.vbs "%udkrootdir%\Workshop\Template"
+TIMEOUT /T 1 > NUL
+
+ROBOCOPY "%scriptdir%\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH UDK_Default.png
+ECHO ------------------------------------------------------------------------------
+ECHO.
+TIMEOUT /T 1 > NUL
+
+REM ############################################################################
+
+REM                   Open UDK Frontend Program
+
+REM ############################################################################
+
+call :c 02 "##################################"&call :c 07 " STEP 8 "&call :c 02 "##################################" /n
+ECHO.
+ECHO Opening UDK Frontend. Please run a Full Recompile . . .
+ECHO.
+call :c 02 "|‾‾‾‾‾‾‾‾‾‾|" /n
+call :c 02 "|    ██    |" /n
+call :c 02 "| "&call :c 07 "Script ▼"&call :c 02 " |" /n
+call :c 02 "|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|" /n
+call :c 02 "|  "&call :c 07 "Full recompile"&call :c 02 "  |" /n
+call :c 02 " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " /n
+ECHO.
+
+CD /D "%udkdir%\Binaries"
+START UnrealFrontend.exe
+
+CD /D "%scriptdir%"
+
+PAUSE
+ECHO.
 
 REM This is the end :'(
 :TheEnd
