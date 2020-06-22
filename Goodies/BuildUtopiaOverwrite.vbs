@@ -2,6 +2,7 @@
 ''' A stupid little script that builds the UtopiaOverwrite Script
 ''' Mr. Swaggles - 2020/06/19
 
+' https://stackoverflow.com/questions/2198810/creating-and-writing-lines-to-a-file
 
 ' Accept UDK maps and target UPK filename as arguments
 sMapsDir = WScript.Arguments.Item(0)

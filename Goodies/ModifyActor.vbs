@@ -2,6 +2,7 @@
 ''' A stupid little script that replces one line of Actor.uc
 ''' Mr. Swaggles - 2020/06/15
 
+' https://stackoverflow.com/questions/2198810/creating-and-writing-lines-to-a-file
 
 ' Accept a filename as an argument
 sFileName = WScript.Arguments.Item(0)

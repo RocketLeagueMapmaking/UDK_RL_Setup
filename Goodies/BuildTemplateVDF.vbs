@@ -2,7 +2,6 @@
 ''' A stupid little script that builds the Template VDF
 ''' Mr. Swaggles - 2020/06/19
 
-
 ' Accept UDK maps and target UPK filename as arguments
 sFolder = WScript.Arguments.Item(0)
 
