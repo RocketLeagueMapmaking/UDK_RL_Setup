@@ -447,17 +447,9 @@ REM Create shortcut to CookedPCConsole and put it UDK Maps folder
 ECHO Creating shortcuts to CookedPCConsole . . .
 ECHO.
 
-SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkdir%\UDKGame\Content\Maps\CookedPCConsole.lnk" "%rldir%\TAGame\CookedPCConsole"
 
-ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
-ECHO sLinkDest = "%udkdir%\UDKGame\Content\Maps\CookedPCConsole.lnk" >> %SCRIPT%
-ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
-ECHO oLink.TargetPath = "%rldir%\TAGame\CookedPCConsole" >> %SCRIPT%
-ECHO oLink.Save >> %SCRIPT%
-
-CSCRIPT /nologo %SCRIPT%
-DEL %SCRIPT%
-
+TIMEOUT /T 1 > NUL
 
 REM Create shortcuts to Steam Workshop and put it UDK Maps and RL Mods folders
 ECHO Creating shortcuts to Steam Workshop . . .
@@ -473,28 +465,11 @@ CD "252950"
 SET "workshopdir=%cd%"
 CD /D "%scriptdir%"
 
-SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkdir%\UDKGame\Content\Maps\RLWorkshop.lnk" "%workshopdir%"
 
-ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
-ECHO sLinkDest = "%udkdir%\UDKGame\Content\Maps\RLWorkshop.lnk" >> %SCRIPT%
-ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
-ECHO oLink.TargetPath = "%workshopdir%" >> %SCRIPT%
-ECHO oLink.Save >> %SCRIPT%
+CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%rldir%\TAGame\CookedPCConsole\mods\RLWorkshop.lnk" "%workshopdir%"
 
-CSCRIPT /nologo %SCRIPT%
-DEL %SCRIPT%
-
-SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
-
-ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
-ECHO sLinkDest = "%rldir%\TAGame\CookedPCConsole\mods\RLWorkshop.lnk" >> %SCRIPT%
-ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
-ECHO oLink.TargetPath = "%workshopdir%" >> %SCRIPT%
-ECHO oLink.Save >> %SCRIPT%
-
-CSCRIPT /nologo %SCRIPT%
-DEL %SCRIPT%
-
+TIMEOUT /T 1 > NUL
 
 REM Create shortcut to UDK Maps folder and put it up a few levels
 ECHO Creating shortcuts to UDK Maps and a good folder structure . . .
@@ -516,25 +491,20 @@ MKDIR DefaultMap
 MKDIR Test
 CD /D "%scriptdir%"
 
-SET SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\UDK Maps.lnk" "%udkdir%\UDKGame\Content\Maps"
 
-ECHO Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
-ECHO sLinkDest = "%udkrootdir%\UDK Maps.lnk" >> %SCRIPT%
-ECHO Set oLink = oWS.CreateShortcut(sLinkDest) >> %SCRIPT%
-ECHO oLink.TargetPath = "%udkdir%\UDKGame\Content\Maps" >> %SCRIPT%
-ECHO oLink.Save >> %SCRIPT%
-
-CSCRIPT /nologo %SCRIPT%
-DEL %SCRIPT%
+CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\Workshop\HowToUseSteamCmd.url" "https://www.reddit.com/r/RocketLeagueMods/comments/5hzin2/guide_how_to_update_your_steam_workshop_maps/"
 
 TIMEOUT /T 1 > NUL
+
 
 ECHO Creating UtopiaOverwrite Script . . .
 ECHO.
 
 PUSHD %~dp0
-cscript //NoLogo Goodies\BuildUtopiaOverwrite.vbs "%udkdir%\UDKGame\Content\Maps" "%rldir%\TAGame\CookedPCConsole\Labs_Utopia_P.upk"
+CSCRIPT //NoLogo Goodies\BuildUtopiaOverwrite.vbs "%udkdir%\UDKGame\Content\Maps" "%rldir%\TAGame\CookedPCConsole\Labs_Utopia_P.upk"
 TIMEOUT /T 1 > NUL
+
 
 REM ############################################################################
 
