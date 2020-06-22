@@ -58,6 +58,8 @@ setlocal enableDelayedExpansion
 
 REM ############################################################################
 
+REM https://stackoverflow.com/questions/4339649/how-to-have-multiple-colors-in-a-windows-batch-file
+
 :colorPrint Color  Str  [/n]
 setlocal
 set "s=%~2"
@@ -71,7 +73,8 @@ pushd .
 ':
 cd \
 set "s=!%~2!"
-:: The single blank line within the following IN() clause is critical - DO NOT REMOVE
+
+REM The single blank line within the following IN() clause is critical - DO NOT REMOVE
 for %%n in (^"^
 
 ^") do (
@@ -218,6 +221,7 @@ IF "%udkdownload%" == "y" (
 ECHO Continue onward once UDK finishes installing. Close the program . . .
 ECHO.
 PAUSE
+
 :SkipUDKInstaller
 
 
@@ -230,7 +234,7 @@ REM ############################################################################
 call :c 02 "##################################"&call :c 07 " STEP 3 "&call :c 02 "##################################" /n
 :NotUDK
 ECHO.
-SET /p udkdir="Enter Install Location (ex. C:\UDK\RLMods): "
+SET /p udkdir="Enter Install Location, including the Project Name (ex. C:\UDK\RLMods): "
 ECHO.
 ECHO Looking in %udkdir% . . .
 ECHO.
@@ -295,7 +299,6 @@ ECHO.
 TIMEOUT /T 1 > NUL
 
 
-
 REM ############################################################################
 
 REM                       Modify several Unreal files
@@ -310,7 +313,7 @@ REM Modify DefaultEngine.ini with additions from DummyClasses
 ECHO Modifying DefaultEngine.ini . . .
 ECHO.
 pushd %~dp0
-cscript //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\DefaultEngine.ini"
+CSCRIPT //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\DefaultEngine.ini"
 TIMEOUT /T 1 > NUL
 
 REM Modify StaticMeshActor.uc
@@ -318,7 +321,7 @@ REM Modify StaticMeshActor.uc
 ECHO Modifying StaticMeshActor.uc . . .
 ECHO.
 pushd %~dp0
-cscript //NoLogo Goodies\ModifyStaticMeshActor.vbs "%udkdir%\Development\Src\Engine\Classes\StaticMeshActor.uc"
+CSCRIPT //NoLogo Goodies\ModifyStaticMeshActor.vbs "%udkdir%\Development\Src\Engine\Classes\StaticMeshActor.uc"
 TIMEOUT /T 1 > NUL
 
 REM Modify Actor.uc
@@ -326,7 +329,7 @@ REM Modify Actor.uc
 ECHO Modifying Actor.uc . . .
 ECHO.
 pushd %~dp0
-cscript //NoLogo Goodies\ModifyActor.vbs "%udkdir%\Development\Src\Engine\Classes\Actor.uc"
+CSCRIPT //NoLogo Goodies\ModifyActor.vbs "%udkdir%\Development\Src\Engine\Classes\Actor.uc"
 TIMEOUT /T 1 > NUL
 
 REM Modify PrimitiveComponent.uc
@@ -334,7 +337,7 @@ REM Modify PrimitiveComponent.uc
 ECHO Modifying PrimitiveComponent.uc . . .
 ECHO.
 pushd %~dp0
-cscript //NoLogo Goodies\ModifyPrimitiveComponent.vbs "%udkdir%\Development\Src\Engine\Classes\PrimitiveComponent.uc"
+CSCRIPT //NoLogo Goodies\ModifyPrimitiveComponent.vbs "%udkdir%\Development\Src\Engine\Classes\PrimitiveComponent.uc"
 TIMEOUT /T 1 > NUL
 
 
@@ -565,6 +568,7 @@ ECHO ---------------------------------------------------------------------------
 ECHO.
 TIMEOUT /T 1 > NUL
 
+
 REM ############################################################################
 
 REM                   Open UDK Frontend Program
@@ -590,6 +594,7 @@ CD /D "%scriptdir%"
 
 PAUSE
 ECHO.
+
 
 REM This is the end :'(
 :TheEnd
