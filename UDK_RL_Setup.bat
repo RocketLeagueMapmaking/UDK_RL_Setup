@@ -1,5 +1,5 @@
 @ECHO OFF
-chcp 65001 >NUL
+chcp 65001 > NUL
 
 REM This is a comment. Welcome to the script!
 
@@ -7,122 +7,50 @@ ECHO.
 ECHO ############################################################################
 ECHO. 
 
-REM Here's a cool logo to draw in the console, in color!
+REM Here's a cool logo to draw in the console!
 
 setlocal disableDelayedExpansion
-set q=^"
 
-call :c 02 "                                      │" /n
-call :c 02 "                                      │" /n
-call :c 02 "                                      │" /n
-call :c 02 "                                      ║" /n
-call :c 02 "                                      ║" /n
-call :c 02 "                                     │"&call :c 07 "▐"&call :c 02 "│" /n
-call :c 02 "                                     │"&call :c 07 "▐"&call :c 02 "│" /n
-call :c 02 "                                     │"&call :c 07 "▐"&call :c 02 "│" /n
-call :c 02 "                                     │"&call :c 07 "▐"&call :c 02 "│" /n
-call :c 02 "                                     │"&call :c 07 "▐"&call :c 02 "│" /n
-call :c 02 "                                    │ "&call :c 07 "▐█"&call :c 02 "│" /n
-call :c 02 "                                    │ "&call :c 07 "▐█"&call :c 02 "│" /n
-call :c 02 "                                    │ "&call :c 07 "▐█"&call :c 02 "│" /n
-call :c 02 "                                 ▄▄▄│ "&call :c 07 "▐█"&call :c 02 "│▄▄▄" /n
-call :c 02 "                          ▄▄▄▄▀▀▀"&call :c 07 "▀▀▀"&call :c 02 "│ "&call :c 07 "▐█"&call :c 02 "│"&call :c 07 "▀▀▀"&call :c 02 "▀▀▀▄▄▄▄" /n
-call :c 02 "                       ▄▀▀"&call :c 07 "▀▀"&call :c 02 "       │  "&call :c 07 "▐██"&call :c 02 "│       "&call :c 07 "▀▀"&call :c 02 "▀▀▄" /n
-call :c 02 "                      ▐"&call :c 07 "▌▀"&call :c 02 "   ╲      │  "&call :c 07 "▐██"&call :c 02 "│      ╱   "&call :c 07 "▀▐"&call :c 02 "▌" /n
-call :c 02 "                     ▐"&call :c 07 "▌"&call :c 02 "      ╲"&call :c 07 "▀▄"&call :c 02 "   │  "&call :c 07 "▐██"&call :c 02 "│    ╱"&call :c 07 "▄▀"&call :c 02 "     "&call :c 07 "▐"&call :c 02 "▌ " /n
-call :c 02 "                     ▐"&call :c 07 "▌"&call :c 02 "       ╲ "&call :c 07 "█▄"&call :c 02 " │  "&call :c 07 "▐██"&call :c 02 "│  ╱ "&call :c 07 "▄▀"&call :c 02 "      "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                    ▐"&call :c 07 "▌"&call :c 02 "         ╲ "&call :c 07 "▀█"&call :c 02 "│  "&call :c 07 "▐██"&call :c 02 "│ ╱ "&call :c 07 "█▀"&call :c 02 "        "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                    ▐"&call :c 07 "▌"&call :c 02 "          ╲_"&call :c 07 "▀"&call :c 02 "╲  "&call :c 07 "▐██"&call :c 02 "╱ "&call :c 07 "▄█"&call :c 02 "          "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                   ▐"&call :c 07 "▌"&call :c 02 "  ___"&call :c 07 "▄▄▄███████"&call :c 02 "╲ "&call :c 07 "▐█"&call :c 02 "╱‾‾‾‾────____   ▐▌" /n
-call :c 02 "              ___"&call :c 07 "▄▄▄█████████████████"&call :c 02 "╲"&call :c 07 "▐"&call :c 02 "╱             ‾‾‾‾────__" /n
-call :c 02 "        ───═══"&call :c 07 "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀"&call :c 02 "╳"&call :c 07 "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄"&call :c 02 "═══───" /n
-call :c 02 "              ‾‾────____             ╱"&call :c 07 "▌"&call :c 02 "╲"&call :c 07 "█████████████████▀▀▀"&call :c 02 "‾‾‾" /n
-call :c 02 "                   ▐"&call :c 07 "▌"&call :c 02 "   ‾‾‾‾────____╱"&call :c 07 "█▌"&call :c 02 " ╲"&call :c 07 "███████▀▀▀"&call :c 02 "‾‾‾  ▐▌" /n
-call :c 02 "                    ▐"&call :c 07 "▌"&call :c 02 "           "&call :c 07 "█"&call :c 02 " │"&call :c 07 "██▌"&call :c 02 "  │"&call :c 07 "▄"&call :c 02 "‾‾╲         "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                    ▐"&call :c 07 "▌"&call :c 02 "         "&call :c 07 "▄█"&call :c 02 " ╱│"&call :c 07 "██▌"&call :c 02 "  │"&call :c 07 "▀█▄"&call :c 02 " ╲        "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                     ▐"&call :c 07 "▌"&call :c 02 "       "&call :c 07 "▄▀"&call :c 02 " ╱ │"&call :c 07 "██▌"&call :c 02 "  │  "&call :c 07 "▀█"&call :c 02 " ╲      "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                     ▐"&call :c 07 "▌ "&call :c 02 "     "&call :c 07 "▄▀"&call :c 02 "╱    │"&call :c 07 "█▌"&call :c 02 " │     "&call :c 07 "▀▄"&call :c 02 "╲     "&call :c 07 "▐"&call :c 02 "▌" /n
-call :c 02 "                      ▐"&call :c 07 "▌▄"&call :c 02 "    ╱      │"&call :c 07 "█▌"&call :c 02 " │        ╲  "&call :c 07 "▄▐"&call :c 02 "▌" /n
-call :c 02 "                       ▀▄▄"&call :c 07 "▄▄"&call :c 02 "        │"&call :c 07 "█▌"&call :c 02 " │        "&call :c 07 "▄▄"&call :c 02 "▄▄▀" /n
-call :c 02 "                          ▀▀▀▀▄▄▄"&call :c 07 "▄▄▄▄"&call :c 02 "│"&call :c 07 "▌"&call :c 02 "│"&call :c 07 "▄▄▄▄"&call :c 02 "▄▄▄▀▀▀▀" /n
-call :c 02 "                                 ▀▀▀▀│"&call :c 07 "▌"&call :c 02 "│▀▀▀▀" /n
-call :c 02 "                                     │"&call :c 07 "▌"&call :c 02 "│" /n
-call :c 02 "                                      ║" /n
-call :c 02 "                                      │" /n
-call :c 02 "                                      │" /n
+ECHO                                      │
+ECHO                                      │
+ECHO                                      │
+ECHO                                      ║
+ECHO                                      ║
+ECHO                                     │▐│
+ECHO                                     │▐│
+ECHO                                     │▐│
+ECHO                                     │▐│
+ECHO                                     │▐│
+ECHO                                    │ ▐█│
+ECHO                                    │ ▐█│
+ECHO                                    │ ▐█│
+ECHO                                 ▄▄▄│ ▐█│▄▄▄
+ECHO                          ▄▄▄▄▀▀▀▀▀▀│ ▐█│▀▀▀▀▀▀▄▄▄▄
+ECHO                       ▄▀▀▀▀       │  ▐██│       ▀▀▀▀▄
+ECHO                      ▐▌▀   ╲      │  ▐██│      ╱   ▀▐▌
+ECHO                     ▐▌      ╲▀▄   │  ▐██│    ╱▄▀     ▐▌
+ECHO                     ▐▌       ╲ █▄ │  ▐██│  ╱ ▄▀      ▐▌
+ECHO                    ▐▌         ╲ ▀█│  ▐██│ ╱ █▀        ▐▌
+ECHO                    ▐▌          ╲_▀╲  ▐██╱ ▄█          ▐▌
+ECHO                   ▐▌  ___▄▄▄███████╲ ▐█╱‾‾‾‾────____   ▐▌
+ECHO              ___▄▄▄█████████████████╲▐╱             ‾‾‾‾────__
+ECHO        ───═══▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀╳▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄═══───
+ECHO              ‾‾────____             ╱▌╲█████████████████▀▀▀‾‾‾
+ECHO                   ▐▌   ‾‾‾‾────____╱█▌ ╲███████▀▀▀‾‾‾  ▐▌
+ECHO                    ▐▌           █ │██▌  │▄‾‾╲         ▐▌
+ECHO                    ▐▌         ▄█ ╱│██▌  │▀█▄ ╲        ▐▌
+ECHO                     ▐▌       ▄▀ ╱ │██▌  │  ▀█ ╲      ▐▌
+ECHO                     ▐▌      ▄▀╱    │█▌ │     ▀▄╲     ▐▌
+ECHO                      ▐▌▄    ╱      │█▌ │        ╲  ▄▐▌
+ECHO                       ▀▄▄▄▄        │█▌ │        ▄▄▄▄▀
+ECHO                          ▀▀▀▀▄▄▄▄▄▄▄│▌│▄▄▄▄▄▄▄▀▀▀▀
+ECHO                                 ▀▀▀▀│▌│▀▀▀▀
+ECHO                                     │▌│
+ECHO                                      ║
+ECHO                                      │
+ECHO                                      │
 
-GOTO Start
-
-:c
-setlocal enableDelayedExpansion
-
-REM ############################################################################
-
-REM https://stackoverflow.com/questions/4339649/how-to-have-multiple-colors-in-a-windows-batch-file
-
-:colorPrint Color  Str  [/n]
-setlocal
-set "s=%~2"
-call :colorPrintVar %1 s %3
-exit /b
-
-:colorPrintVar  Color  StrVar  [/n]
-if not defined DEL call :initColorPrint
-setlocal enableDelayedExpansion
-pushd .
-':
-cd \
-set "s=!%~2!"
-
-REM The single blank line within the following IN() clause is critical - DO NOT REMOVE
-for %%n in (^"^
-
-^") do (
-  set "s=!s:\=%%~n\%%~n!"
-  set "s=!s:/=%%~n/%%~n!"
-  set "s=!s::=%%~n:%%~n!"
-)
-for /f delims^=^ eol^= %%s in ("!s!") do (
-  if "!" equ "" setlocal disableDelayedExpansion
-  if %%s==\ (
-    findstr /a:%~1 "." "\'" nul
-    <nul set /p "=%DEL%%DEL%%DEL%"
-  ) else if %%s==/ (
-    findstr /a:%~1 "." "/.\'" nul
-    <nul set /p "=%DEL%%DEL%%DEL%%DEL%%DEL%"
-  ) else (
-    >colorPrint.txt (echo %%s\..\')
-    findstr /a:%~1 /f:colorPrint.txt "."
-    <nul set /p "=%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%%DEL%"
-  )
-)
-if /i "%~3"=="/n" echo(
-popd
-exit /b
-
-
-:initColorPrint
-for /f %%A in ('"prompt $H&for %%B in (1) do rem"') do set "DEL=%%A %%A"
-<nul >"%temp%\'" set /p "=."
-subst ': "%temp%" >nul
-exit /b
-
-
-:cleanupColorPrint
-2>nul del "%temp%\'"
-2>nul del "%temp%\colorPrint.txt"
->nul subst ': /d
-exit /b                                        
-
-
-
-
-
-
-
-
-
-
+TIMEOUT /T 1 > NUL
 
 REM ############################################################################
 
@@ -145,12 +73,12 @@ ECHO               UDK Setup Script for Rocket League Mapmaking
 ECHO.
 ECHO                              By Mr. Swaggles
 ECHO.
-call :c 02 "##################################"&call :c 07 " STEP 1 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 1 ##################################
 ECHO.
+TIMEOUT /T 1 > NUL
 ECHO Please take a minute to review this script (but don't change it!)
 ECHO.
-call :c 07 ".BAT files you don't understand can do "&call :c 0C "terrible"&call :c 07 " things"
-ECHO.
+ECHO .BAT files you don't understand can do terrible things
 ECHO.
 ECHO You can stop at any point with Ctrl+C or by closing the window
 ECHO.
@@ -168,9 +96,9 @@ REM             Install UDK if it isn't there already
 
 REM ############################################################################
 
-call :c 02 "##################################"&call :c 07 " STEP 2 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 2 ##################################
 ECHO.
-ECHO Once you finish we'll start the UDK install . . .
+ECHO Once you're ready we'll start the UDK install . . .
 ECHO.
 
 SET udkinstalled=
@@ -231,7 +159,7 @@ REM             Move Dummy Classes into the UDK install folder
 
 REM ############################################################################
 
-call :c 02 "##################################"&call :c 07 " STEP 3 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 3 ##################################
 :NotUDK
 ECHO.
 SET /p udkdir="Enter Install Location, including the Project Name (ex. C:\UDK\RLMods): "
@@ -253,7 +181,7 @@ TIMEOUT /T 1 > NUL
 
 ECHO.
 REM Check for DummyClasses in a few places
-call :c 02 "##################################"&call :c 07 " STEP 4 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 4 ##################################
 :NotClasses
 ECHO.
 ECHO Looking for RL Dummy Classes . . .
@@ -305,7 +233,7 @@ REM                       Modify several Unreal files
 
 REM ############################################################################
 
-call :c 02 "##################################"&call :c 07 " STEP 5 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 5 ##################################
 ECHO.
 
 REM Modify DefaultEngine.ini with additions from DummyClasses
@@ -347,7 +275,7 @@ REM                       Set up project folders
 
 REM ############################################################################
 
-call :c 02 "##################################"&call :c 07 " STEP 6 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 6 ##################################
 
 REM Check for DummyAssets
 
@@ -512,7 +440,7 @@ REM               Set up Workshop uploading folder
 
 REM ############################################################################
 
-call :c 02 "##################################"&call :c 07 " STEP 7 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 7 ##################################
 
 SET steamcmddownload=
 SET /p steamcmddownload="Would you like to download SteamCMD (for uploading maps)? (y/n): "
@@ -545,16 +473,16 @@ REM                   Open UDK Frontend Program
 
 REM ############################################################################
 
-call :c 02 "##################################"&call :c 07 " STEP 8 "&call :c 02 "##################################" /n
+ECHO ################################## STEP 8 ##################################
 ECHO.
 ECHO Opening UDK Frontend. Please run a Full Recompile . . .
 ECHO.
-call :c 02 "|‾‾‾‾‾‾‾‾‾‾|" /n
-call :c 02 "|    ██    |" /n
-call :c 02 "| "&call :c 07 "Script ▼"&call :c 02 " |" /n
-call :c 02 "|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|" /n
-call :c 02 "|  "&call :c 07 "Full recompile"&call :c 02 "  |" /n
-call :c 02 " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " /n
+ECHO "|‾‾‾‾‾‾‾‾‾‾|" /n
+ECHO "|    ██    |" /n
+ECHO "| Script ▼ |" /n
+ECHO "|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|" /n
+ECHO "|  Full recompile  |" /n
+ECHO " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " /n
 ECHO.
 
 CD /D "%udkdir%\Binaries"
@@ -568,13 +496,8 @@ ECHO.
 
 REM This is the end :'(
 :TheEnd
-call :c 02 "##################################"&call :c 07 " THE END "&call :c 02 "#################################" /n
+ECHO ################################## THE END #################################" /n
 ECHO.
 ECHO gg
 ECHO.
 PAUSE
-
-
-
-
-
