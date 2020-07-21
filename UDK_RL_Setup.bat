@@ -1,5 +1,4 @@
 @ECHO OFF
-chcp 65001 > NUL
 
 REM This is a comment. Welcome to the script!
 
@@ -10,6 +9,9 @@ ECHO.
 REM Here's a cool logo to draw in the console!
 
 setlocal disableDelayedExpansion
+
+ECHO │▐│ > NUL
+if %ERRORLEVEL% neq 0 GOTO SimpleLogo
 
 ECHO                                      │
 ECHO                                      │
@@ -50,6 +52,30 @@ ECHO                                      ║
 ECHO                                      │
 ECHO                                      │
 
+GOTO Start
+
+:SimpleLogo
+
+ECHO            __  __  ____    __  __      ____    __        
+ECHO           /\ \/\ \/\  _`\ /\ \/\ \    /\  _`\ /\ \       
+ECHO           \ \ \ \ \ \ \/\ \ \ \/'/'   \ \ \L\ \ \ \      
+ECHO            \ \ \ \ \ \ \ \ \ \ , <     \ \ ,  /\ \ \  __ 
+ECHO             \ \ \_\ \ \ \_\ \ \ \\`\    \ \ \\ \\ \ \L\ \
+ECHO              \ \_____\ \____/\ \_\ \_\   \ \_\ \_\ \____/
+ECHO               \/_____/\/___/  \/_/\/_/    \/_/\/ /\/___/ 
+ECHO.
+ECHO.
+ECHO            ____            __                      
+ECHO           /\  _`\         /\ \__                   
+ECHO           \ \,\L\_\     __\ \ ,_\  __  __  _____   
+ECHO            \/_\__ \   /'__`\ \ \/ /\ \/\ \/\ '__`\ 
+ECHO              /\ \L\ \/\  __/\ \ \_\ \ \_\ \ \ \L\ \
+ECHO              \ `\____\ \____\\ \__\\ \____/\ \ ,__/
+ECHO               \/_____/\/____/ \/__/ \/___/  \ \ \/ 
+ECHO                                              \ \_\ 
+ECHO                                               \/_/ 
+
+:Start
 TIMEOUT /T 1 > NUL
 
 REM ############################################################################
@@ -58,7 +84,7 @@ REM             THIS IS THE START OF THE ACTUAL SCRIPT
 
 REM ############################################################################
 
-:Start
+
 ECHO. 
 
 REM ############################################################################
