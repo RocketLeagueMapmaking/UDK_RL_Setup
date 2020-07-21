@@ -1,4 +1,5 @@
 @ECHO OFF
+CHCP 65001 > NUL
 
 REM This is a comment. Welcome to the script!
 
@@ -163,7 +164,7 @@ if exist UDKInstall-2013-02-BETA.exe (
 SET udkdownload=
 SET /p udkdownload="Would you like to download the UDK Installer? (y/n): "
 IF "%udkdownload%" == "y" (
-    START "" "%cd%\Goodies\UDK-2013-02-BETA_Download.url"
+    START "" "https://drive.google.com/u/0/uc?export=download&confirm=OViB&id=1IBLYxCDxIgRtMS7V9SizeY_FpHhWEHxo"
     ECHO.
     ECHO Downloading . . .
     ECHO.
@@ -237,7 +238,7 @@ IF EXIST "%cd%\RL-Dummy-Classes-v3\README.md" (
     GOTO GotClasses
 ) ELSE (
     ECHO Folder not found. Please download it to %cd% and unzip it . . .
-    START /Wait "" "%cd%\Goodies\RL-Dummy-Classes-v3_Download.url"
+    START /Wait "" "https://github.com/ardivee/RL-Dummy-Classes-v3"
     PAUSE
     GOTO NotClasses
 )
@@ -334,7 +335,7 @@ IF EXIST "%cd%\RL_DummyAssets\README.md" (
 ) ELSE (
     ECHO Folder not found. Please download it to %cd% and unzip it . . .
     ECHO.
-    START /Wait "" "%cd%\Goodies\RL_DummyAssets_Download.url"
+    START /Wait "" "https://github.com/Martinii89/RL_DummyAssets"
     PAUSE
     GOTO NotAssets
 )
@@ -472,7 +473,7 @@ SET steamcmddownload=
 SET /p steamcmddownload="Would you like to download SteamCMD (for uploading maps)? (y/n): "
     ECHO.
 IF "%steamcmddownload%" == "y" (
-    START "" "%cd%\Goodies\SteamCmd_Download.url"
+    START "" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
     ECHO Downloading . . .
     ECHO.
     ECHO Please refer to a guide for how to use SteamCmd . . .
