@@ -455,6 +455,7 @@ REM               Set up Workshop uploading folder
 REM ############################################################################
 
 ECHO ################################## STEP 7 ##################################
+ECHO.
 
 SET steamcmddownload=
 SET /p steamcmddownload="Would you like to download SteamCMD (for uploading maps)? (y/n): "
