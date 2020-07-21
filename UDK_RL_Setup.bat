@@ -419,7 +419,7 @@ REM Create shortcut to UDK Maps folder and put it up a few levels
 ECHO Creating shortcuts to UDK Maps and a good folder structure . . .
 ECHO.
 
-CD "%udkdir%"
+CD /D "%udkdir%"
 CD ..
 SET "udkrootdir=%cd%"
 MKDIR Workshop
@@ -522,7 +522,9 @@ ECHO.
 
 REM This is the end :'(
 :TheEnd
-ECHO ################################## THE END #################################" /n
+ECHO ################################## THE END ##################################
+ECHO.
+ECHO UDK is ready to go!
 ECHO.
 ECHO gg
 ECHO.
