@@ -166,13 +166,14 @@ SET /p udkdownload="Would you like to download the UDK Installer? (y/n): "
 IF "%udkdownload%" == "y" (
     START "" "https://drive.google.com/u/0/uc?export=download&confirm=OViB&id=1IBLYxCDxIgRtMS7V9SizeY_FpHhWEHxo"
     ECHO.
-    ECHO Downloading . . .
-    ECHO.
+    ECHO Move it to this folder when it finished downloading . . .
+    ECHO (try a different browser if the download fails)
     PAUSE
     GOTO NotUDKInstaller
 )
 
 :GotUDKInstaller
+ECHO.
 ECHO Continue onward once UDK finishes installing. Close the program . . .
 ECHO.
 PAUSE
@@ -379,18 +380,6 @@ MKDIR "%rldir%\TAGame\CookedPCConsole\mods"
 ECHO.
 TIMEOUT /T 1 > NUL
 
-REM Copy DummyAssets into the UDK folder using Robocopy
-
-ECHO Creating backup of Labs_Utopia_P . . .
-ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkdir%\UDKGame\Content\Maps " /NFL /NDL /NJH Labs_Utopia_P.upk
-ECHO ------------------------------------------------------------------------------
-ECHO.
-TIMEOUT /T 1 > NUL
-
-REN "%udkdir%\UDKGame\Content\Maps\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk
-DEL "%udkdir%\UDKGame\Content\Maps\Labs_Utopia_P.upk" > NUL
-ECHO.
-
 REM ############################################################################
 
 REM                    Create a bunch of useful shortcuts
@@ -448,8 +437,6 @@ CD /D "%scriptdir%"
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\UDK Maps.lnk" "%udkdir%\UDKGame\Content\Maps"
 
-CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\Workshop\HowToUseSteamCmd.url" "https://www.reddit.com/r/RocketLeagueMods/comments/5hzin2/guide_how_to_update_your_steam_workshop_maps/"
-
 TIMEOUT /T 1 > NUL
 
 
@@ -476,7 +463,8 @@ IF "%steamcmddownload%" == "y" (
     START "" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
     ECHO Downloading . . .
     ECHO.
-    ECHO Please refer to a guide for how to use SteamCmd . . .
+    ECHO Please refer to this guide for how to use SteamCmd . . .
+    START "" "https://www.reddit.com/r/RocketLeagueMods/comments/5hzin2/guide_how_to_update_your_steam_workshop_maps/"
     ECHO.
     PAUSE
     ECHO.
@@ -493,6 +481,17 @@ ECHO ---------------------------------------------------------------------------
 ECHO.
 TIMEOUT /T 1 > NUL
 
+REM Copy Labs_Utopia_P into the Workshop folder using Robocopy
+
+ECHO Creating backup of Labs_Utopia_P . . .
+ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkrootdir%\Workshop " /NFL /NDL /NJH Labs_Utopia_P.upk
+ECHO ------------------------------------------------------------------------------
+ECHO.
+TIMEOUT /T 1 > NUL
+
+REN "%udkrootdir%\Workshop\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk
+DEL "%udkrootdir%\Workshop\Labs_Utopia_P.upk" > NUL
+ECHO.
 
 REM ############################################################################
 
