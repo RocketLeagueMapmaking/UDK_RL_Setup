@@ -14,21 +14,21 @@ setlocal disableDelayedExpansion
 ECHO │▐│ > NUL
 if %ERRORLEVEL% neq 0 GOTO SimpleLogo
 
-ECHO                                      │
-ECHO                                      │
-ECHO                                      │
-ECHO                                      ║
-ECHO                                      ║
-ECHO                                     │▐│
-ECHO                                     │▐│
-ECHO                                     │▐│
-ECHO                                     │▐│
-ECHO                                     │▐│
-ECHO                                    │ ▐█│
-ECHO                                    │ ▐█│
-ECHO                                    │ ▐█│
-ECHO                                 ▄▄▄│ ▐█│▄▄▄
-ECHO                          ▄▄▄▄▀▀▀▀▀▀│ ▐█│▀▀▀▀▀▀▄▄▄▄
+ECHO                                      ^│
+ECHO                                      ^│
+ECHO                                      ^│
+ECHO                                      ^║
+ECHO                                      ^║
+ECHO                                     ^│^▐^│
+ECHO                                     ^│^▐^│
+ECHO                                     ^│^▐^│
+ECHO                                     ^│^▐^│
+ECHO                                     ^│^▐^│
+ECHO                                    ^│ ^▐^█^│
+ECHO                                    ^│ ^▐^█^│
+ECHO                                    ^│ ^▐^█^│
+ECHO                                 ^▄^▄^▄^│ ^▐^█^│^▄^▄^▄
+ECHO                          ^▄^▄^▄^▄^▀^▀^▀^▀^▀^▀^│ ^▐^█^│^▀^▀^▀^▀^▀^▀^▄^▄^▄^▄
 ECHO                       ▄▀▀▀▀       │  ▐██│       ▀▀▀▀▄
 ECHO                      ▐▌▀   ╲      │  ▐██│      ╱   ▀▐▌
 ECHO                     ▐▌      ╲▀▄   │  ▐██│    ╱▄▀     ▐▌
@@ -105,6 +105,7 @@ ECHO.
 TIMEOUT /T 1 > NUL
 ECHO You can stop at any point with Ctrl+C or by closing the window
 ECHO.
+ECHO started > log.txt
 PAUSE
 ECHO.
 
@@ -122,6 +123,7 @@ ECHO.
 SET udkinstalled=
 SET /p udkinstalled="Do you already have UDK installed? (y/n): "
 IF "%udkinstalled%" == "y" (
+    ECHO udkinstalled: y >> log.txt
     ECHO.
     ECHO Fantastic news! Now to make some changes . . .
     ECHO.
@@ -131,16 +133,19 @@ IF "%udkinstalled%" == "y" (
 )
 
 :NotUDKInstaller
+ECHO udkinstalled: n >> log.txt
 ECHO.
 
 
 REM Look for the UDK 2015 Installer program and start it
 if exist UDKInstall-2015-02.exe (
+    ECHO udkinstallerfound: y >> log.txt
     ECHO Got it! Opening the installer . . .
     ECHO.
     START UDKInstall-2015-02.exe
     GOTO GotUDKInstaller
 ) else (
+    ECHO udkinstallerfound: n >> log.txt
     ECHO Could not find UDK Installer . . .
     ECHO.
     CALL :DownloadUDK
@@ -157,6 +162,7 @@ SET /p udkdownload="Would you like to download the UDK Installer? (y/n): "
 IF "%udkdownload%" == "y" (
     START "" "https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing"
     ECHO.
+    ECHO downloadudk: y >> log.txt
     ECHO Move it to this folder when it finished downloading . . .
     ECHO (try a different browser if the download fails)
     PAUSE
@@ -175,6 +181,7 @@ ECHO 4 - Ignore the Perforce offers
 ECHO.
 ECHO 5 - Continue onward once UDK finishes installing (~2 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
 ECHO.
+ECHO udkinstalled: y >> log.txt
 PAUSE
 
 :SkipUDKInstaller
@@ -195,10 +202,12 @@ ECHO Looking in %udkdir% . . .
 ECHO.
 
 IF EXIST "%udkdir%\Binaries\Win64\UDK.exe" (
+    ECHO udkdir: y >> log.txt
     ECHO Got it!
     GOTO GotUDK
 ) ELSE (
     REM Retry if you typed the wrong thing or if it's not there
+    ECHO udkdir: n >> log.txt
     ECHO Did you type the project name at the end? ^(e.g. \CustomGame^)
     GOTO NotUDK
 )
@@ -217,26 +226,31 @@ TIMEOUT /T 1 > NUL
 
 SET classesdir=
 IF EXIST "%cd%\RL-Dummy-Classes-v3\README.md" (
+    ECHO dummyclasses: git >> log.txt
     SET classesdir=RL-Dummy-Classes-v3
     ECHO Got it!
     ECHO.
     GOTO GotClasses
 ) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\README.md" (
+    ECHO dummyclasses: dl >> log.txt
     SET classesdir=RL-Dummy-Classes-v3-master
     ECHO Got it!
     ECHO.
     GOTO GotClasses
 ) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3\README.md" (
+    ECHO dummyclasses: nest >> log.txt
     SET classesdir=RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3
     ECHO Got it!
     ECHO.
     GOTO GotClasses
 ) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3-master\README.md" (
+    ECHO dummyclasses: dlzip >> log.txt
     SET classesdir=RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3-master
     ECHO Got it!
     ECHO.
     GOTO GotClasses
 ) ELSE (
+    ECHO dummyclasses: n >> log.txt
     ECHO Folder not found. Please download it to %cd% and unzip it . . .
     START /Wait "" "https://github.com/ardivee/RL-Dummy-Classes-v3"
     PAUSE
@@ -251,6 +265,7 @@ ECHO Copying Dummy Classes into UDK . . .
 ROBOCOPY "%cd%\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
 ECHO ------------------------------------------------------------------------------
 ECHO.
+ECHO dummyclassescopied: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 
@@ -269,6 +284,7 @@ ECHO Modifying DefaultEngine.ini . . .
 ECHO.
 pushd %~dp0
 CSCRIPT //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\DefaultEngine.ini"
+ECHO defaultengineini: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REM Modify StaticMeshActor.uc
@@ -277,6 +293,7 @@ ECHO Modifying StaticMeshActor.uc . . .
 ECHO.
 pushd %~dp0
 CSCRIPT //NoLogo Goodies\ModifyStaticMeshActor.vbs "%udkdir%\Development\Src\Engine\Classes\StaticMeshActor.uc"
+ECHO staticmeshactoruc: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REM Modify Actor.uc
@@ -285,6 +302,7 @@ ECHO Modifying Actor.uc . . .
 ECHO.
 pushd %~dp0
 CSCRIPT //NoLogo Goodies\ModifyActor.vbs "%udkdir%\Development\Src\Engine\Classes\Actor.uc"
+ECHO actoruc: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REM Modify PrimitiveComponent.uc
@@ -293,6 +311,7 @@ ECHO Modifying PrimitiveComponent.uc . . .
 ECHO.
 pushd %~dp0
 CSCRIPT //NoLogo Goodies\ModifyPrimitiveComponent.vbs "%udkdir%\Development\Src\Engine\Classes\PrimitiveComponent.uc"
+ECHO primitivecomponentuc: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 
@@ -313,26 +332,31 @@ ECHO.
 
 SET assetsdir=
 IF EXIST "%cd%\RL_DummyAssets\README.md" (
+    ECHO dummyassets: git >> log.txt
     SET assetsdir=RL_DummyAssets
     ECHO Got it!
     ECHO.
     GOTO GotAssets
 ) ELSE IF EXIST "%cd%\RL_DummyAssets-master\README.md" (
+    ECHO dummyassets: dl >> log.txt
     SET assetsdir=RL_DummyAssets-master
     ECHO Got it!
     ECHO.
     GOTO GotAssets
 ) ELSE IF EXIST "%cd%\RL_DummyAssets-master\RL_DummyAssets\README.md" (
+    ECHO dummyassets: nest >> log.txt
     SET assetsdir=RL_DummyAssets-master\RL_DummyAssets
     ECHO Got it!
     ECHO.
     GOTO GotAssets
 ) ELSE IF EXIST "%cd%\RL_DummyAssets-master\RL_DummyAssets-master\README.md" (
+    ECHO dummyassets: zip >> log.txt
     SET assetsdir=RL_DummyAssets-master\RL_DummyAssets-master
     ECHO Got it!
     ECHO.
     GOTO GotAssets
 ) ELSE (
+    ECHO dummyassets: n >> log.txt
     ECHO Folder not found. Please download it to %cd% and unzip it . . .
     ECHO.
     START /Wait "" "https://github.com/Martinii89/RL_DummyAssets"
@@ -349,13 +373,14 @@ ECHO Copying Dummy Assets into UDK . . .
 ROBOCOPY "%cd%\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /xf README.md /xd .git
 ECHO ------------------------------------------------------------------------------
 ECHO.
+ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REM Ask for RL install location
 
 :NotRL
 ECHO.
-ECHO In Steam, right click Rocket League > Properties > Local Files > Browse Local Files . . .
+ECHO In Steam, right click Rocket League ^> Properties ^> Local Files ^> Browse Local Files . . .
 ECHO.
 ECHO Copy the directory and paste it here . . .
 ECHO.
@@ -365,10 +390,12 @@ ECHO Looking in %rldir% . . .
 ECHO.
 
 IF EXIST "%rldir%\Binaries\RocketLeague.exe" (
+    ECHO rldir: y >> log.txt
     ECHO Got it!
     GOTO GotRL
 ) ELSE (
     REM Retry if you typed the wrong thing or if it's not there
+    ECHO rldir: n >> log.txt
     ECHO Not there. Try Steam ^> Right click RL ^> Properties ^> Local Files ^> Browse Local Files
     GOTO NotRL
 )
@@ -379,7 +406,7 @@ ECHO.
 ECHO Creating mods folder in CookedPCConsole . . .
 
 MKDIR "%rldir%\TAGame\CookedPCConsole\mods"
-
+ECHO modsdir: y >> log.txt
 ECHO.
 TIMEOUT /T 1 > NUL
 
@@ -395,7 +422,7 @@ ECHO Creating shortcuts to CookedPCConsole . . .
 ECHO.
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkdir%\UDKGame\Content\Maps\CookedPCConsole.lnk" "%rldir%\TAGame\CookedPCConsole"
-
+ECHO cookedshortcut: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REM Create shortcuts to Steam Workshop and put it UDK Maps and RL Mods folders
@@ -413,8 +440,10 @@ SET "workshopdir=%cd%"
 CD /D "%scriptdir%"
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkdir%\UDKGame\Content\Maps\RLWorkshop.lnk" "%workshopdir%"
+ECHO workshopshortcut: y >> log.txt
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%rldir%\TAGame\CookedPCConsole\mods\RLWorkshop.lnk" "%workshopdir%"
+ECHO workshopshortcut: y >> log.txt
 
 TIMEOUT /T 1 > NUL
 
@@ -439,6 +468,7 @@ MKDIR Test
 CD /D "%scriptdir%"
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\UDK Maps.lnk" "%udkdir%\UDKGame\Content\Maps"
+ECHO mapsshortcut: y >> log.txt
 
 TIMEOUT /T 1 > NUL
 
@@ -448,6 +478,7 @@ ECHO.
 
 PUSHD %~dp0
 CSCRIPT //NoLogo Goodies\BuildUtopiaOverwrite.vbs "%udkdir%\UDKGame\Content\Maps" "%rldir%\TAGame\CookedPCConsole\Labs_Utopia_P.upk"
+ECHO utopiaoverwrite: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 
@@ -464,6 +495,7 @@ SET steamcmddownload=
 SET /p steamcmddownload="Would you like to download SteamCMD (for uploading maps)? (y/n): "
     ECHO.
 IF "%steamcmddownload%" == "y" (
+    ECHO steamcmd: y >> log.txt
     START "" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
     ECHO Downloading . . .
     ECHO.
@@ -478,11 +510,13 @@ ECHO Creating Template Workshop Folder . . .
 ECHO.
 PUSHD %~dp0
 cscript //NoLogo Goodies\BuildTemplateVDF.vbs "%udkrootdir%\Workshop\Template"
+ECHO templatesdir: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ROBOCOPY "%scriptdir%\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH UDK_Default.png
 ECHO ------------------------------------------------------------------------------
 ECHO.
+ECHO udkdefaultgrid: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REM Copy Labs_Utopia_P into the Workshop folder using Robocopy
@@ -491,9 +525,10 @@ ECHO Creating backup of Labs_Utopia_P . . .
 ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkrootdir%\Workshop " /NFL /NDL /NJH Labs_Utopia_P.upk
 ECHO ------------------------------------------------------------------------------
 ECHO.
+ECHO utopiabackup: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-REN "%udkrootdir%\Workshop\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk
+REN "%udkrootdir%\Workshop\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk > NUL
 DEL "%udkrootdir%\Workshop\Labs_Utopia_P.upk" > NUL
 ECHO.
 
@@ -517,7 +552,7 @@ ECHO.
 
 CD /D "%udkdir%\Binaries"
 START UnrealFrontend.exe
-
+ECHO unrealfrontend: y >> log.txt
 CD /D "%scriptdir%"
 
 PAUSE
@@ -528,6 +563,7 @@ REM This is the end :'(
 :TheEnd
 ECHO ################################## THE END ##################################
 ECHO.
+ECHO yeet: y >> log.txt
 ECHO UDK is ready to go!
 ECHO.
 ECHO Close Unreal Frontend and open UDK!
