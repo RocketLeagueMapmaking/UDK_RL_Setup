@@ -11,8 +11,8 @@
 
 ## How to download with buttons
 * Download this repository
-* Download https://github.com/ardivee/RL-Dummy-Classes-v3, extract and place inside this folder after downloading/cloning
-* Download https://github.com/Martinii89/RL_DummyAssets, extract and place inside this folder after downloading/cloning
+* Download https://github.com/ardivee/RL-Dummy-Classes-v3, extract and place inside /RocketLeagueMapMaking/ after downloading/cloning
+* Download https://github.com/Martinii89/RL_DummyAssets, extract and place inside /RocketLeagueMapMaking/ after downloading/cloning
 
 ## After downloading
 * Close UDK if you have it open
