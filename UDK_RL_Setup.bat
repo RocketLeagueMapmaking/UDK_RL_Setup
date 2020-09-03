@@ -143,11 +143,11 @@ IF "%udkinstalled%" == "y" (
 ECHO.
 
 
-REM Look for the UDK Installer program and start it
-if exist UDKInstall-2013-02-BETA.exe (
+REM Look for the UDK 2015 Installer program and start it
+if exist UDKInstall-2015-02.exe (
     ECHO Got it! Opening the installer . . .
     ECHO.
-    START UDKInstall-2013-02-BETA.exe
+    START UDKInstall-2015-02.exe
     GOTO GotUDKInstaller
 ) else (
     ECHO Could not find UDK Installer . . .
@@ -164,7 +164,7 @@ if exist UDKInstall-2013-02-BETA.exe (
 SET udkdownload=
 SET /p udkdownload="Would you like to download the UDK Installer? (y/n): "
 IF "%udkdownload%" == "y" (
-    START "" "https://drive.google.com/u/0/uc?export=download&confirm=OViB&id=1IBLYxCDxIgRtMS7V9SizeY_FpHhWEHxo"
+    START "" "https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing"
     ECHO.
     ECHO Move it to this folder when it finished downloading . . .
     ECHO (try a different browser if the download fails)
