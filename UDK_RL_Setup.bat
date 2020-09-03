@@ -165,7 +165,15 @@ IF "%udkdownload%" == "y" (
 
 :GotUDKInstaller
 ECHO.
-ECHO Continue onward once UDK finishes installing. Close the program . . .
+ECHO 1 - Select Empty Game for the Project type (we don't need the Starter content)
+ECHO.
+ECHO 2- Type in a Project Name such as RLMM, RLMods, mods, or leave it as Custom
+ECHO.
+ECHO 3 - Make sure the Install Location matches the Project Name
+ECHO.
+ECHO 4 - Ignore the Perforce offers
+ECHO.
+ECHO 5 - Continue onward once UDK finishes installing (~2 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
 ECHO.
 PAUSE
 
@@ -347,6 +355,10 @@ REM Ask for RL install location
 
 :NotRL
 ECHO.
+ECHO In Steam, right click Rocket League > Properties > Local Files > Browse Local Files . . .
+ECHO.
+ECHO Copy the directory and paste it here . . .
+ECHO.
 SET /p rldir="Enter Rocket League Install Location (ex. C:\Program Files (x86)\Steam\steamapps\common\rocketleague): "
 ECHO.
 ECHO Looking in %rldir% . . .
@@ -517,6 +529,8 @@ REM This is the end :'(
 ECHO ################################## THE END ##################################
 ECHO.
 ECHO UDK is ready to go!
+ECHO.
+ECHO Close Unreal Frontend and open UDK!
 ECHO.
 ECHO gg
 ECHO.
