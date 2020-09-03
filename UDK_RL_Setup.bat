@@ -11,9 +11,6 @@ REM Here's a cool logo to draw in the console!
 
 setlocal disableDelayedExpansion
 
-ECHO │▐│ > NUL
-if %ERRORLEVEL% neq 0 GOTO SimpleLogo
-
 ECHO                                      ^│
 ECHO                                      ^│
 ECHO                                      ^│
@@ -35,23 +32,23 @@ ECHO                     ^▐^▌      ^╲^▀^▄   ^│  ^▐^█^█^│    
 ECHO                     ^▐^▌       ^╲ ^█^▄ ^│  ^▐^█^█^│  ^╱ ^▄^▀      ^▐^▌
 ECHO                    ^▐^▌         ^╲ ^▀^█^│  ^▐^█^█^│ ^╱ ^█^▀        ^▐^▌
 ECHO                    ^▐^▌          ^╲^_^▀^╲  ^▐^█^█^╱ ^▄^█          ^▐^▌
-ECHO                   ▐▌  ___▄▄▄███████╲ ▐█╱‾‾‾‾────____   ▐▌
-ECHO              ___▄▄▄█████████████████╲▐╱             ‾‾‾‾────__
-ECHO        ───═══▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀╳▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄═══───
-ECHO              ‾‾────____             ╱▌╲█████████████████▀▀▀‾‾‾
-ECHO                   ▐▌   ‾‾‾‾────____╱█▌ ╲███████▀▀▀‾‾‾  ▐▌
-ECHO                    ▐▌           █ │██▌  │▄‾‾╲         ▐▌
-ECHO                    ▐▌         ▄█ ╱│██▌  │▀█▄ ╲        ▐▌
-ECHO                     ▐▌       ▄▀ ╱ │██▌  │  ▀█ ╲      ▐▌
-ECHO                     ▐▌      ▄▀╱    │█▌ │     ▀▄╲     ▐▌
-ECHO                      ▐▌▄    ╱      │█▌ │        ╲  ▄▐▌
-ECHO                       ▀▄▄▄▄        │█▌ │        ▄▄▄▄▀
-ECHO                          ▀▀▀▀▄▄▄▄▄▄▄│▌│▄▄▄▄▄▄▄▀▀▀▀
-ECHO                                 ▀▀▀▀│▌│▀▀▀▀
-ECHO                                     │▌│
-ECHO                                      ║
-ECHO                                      │
-ECHO                                      │
+ECHO                   ^▐^▌  ^_^_^_^▄^▄^▄^█^█^█^█^█^█^█^╲ ^▐^█^╱^‾^‾^‾^‾^─^─^─^─^_^_^_^_   ^▐^▌
+ECHO              ^_^_^_^▄^▄^▄^█^█^█^█^█^█^█^█^█^█^█^█^█^█^█^█^█^╲^▐^╱             ^‾^‾^‾^‾^─^─^─^─^_^_
+ECHO        ^─^─^─^═^═^═^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^▀^╳^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^▄^═^═^═^─^─^─
+ECHO              ^‾^‾^─^─^─^─^_^_^_^_             ^╱^▌^╲^█^█^█^█^█^█^█^█^█^█^█^█^█^█^█^█^█^▀^▀^▀^‾^‾^‾
+ECHO                   ^▐^▌   ^‾^‾^‾^‾^─^─^─^─^_^_^_^_^╱^█^▌^ ^╲^█^█^█^█^█^█^█^▀^▀^▀^‾^‾^‾  ^▐^▌
+ECHO                    ^▐^▌           ^█ ^│^█^█^▌  ^│^▄^‾^‾^╲         ^▐^▌
+ECHO                    ^▐^▌         ^▄^█ ^╱^│^█^█^▌  ^│^▀^█^▄ ^╲        ^▐^▌
+ECHO                     ^▐^▌       ^▄^▀ ^╱ ^│^█^█^▌  ^│  ^▀^█ ^╲      ^▐^▌
+ECHO                     ^▐^▌      ^▄^▀^╱    ^│^█^▌ ^│     ^▀^▄^╲     ^▐^▌
+ECHO                      ^▐^▌^▄    ^╱      ^│^█^▌ ^│        ^╲  ^▄^▐^▌
+ECHO                       ^▀^▄^▄^▄^▄        ^│^█^▌ ^│        ^▄^▄^▄^▄^▀
+ECHO                          ^▀^▀^▀^▀^▄^▄^▄^▄^▄^▄^▄^│^▌^│^▄^▄^▄^▄^▄^▄^▄^▀^▀^▀^▀
+ECHO                                 ^▀^▀^▀^▀^│^▌^│^▀^▀^▀^▀
+ECHO                                     ^│^▌^│
+ECHO                                      ^║
+ECHO                                      ^│
+ECHO                                      ^│
 
 GOTO Start
 
@@ -264,10 +261,10 @@ REM Copy DummyClasses into the UDK install folder using Robocopy
 ECHO Copying Dummy Classes into UDK . . .
 ROBOCOPY "%cd%\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
 ECHO ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
-ECHO.
 ECHO dummyclassescopied: y >> log.txt
 TIMEOUT /T 1 > NUL
-
+ECHO.
+GOTO SkipComment
 
 REM ############################################################################
 
@@ -275,6 +272,7 @@ REM                       Modify several Unreal files
 
 REM ############################################################################
 
+:SkipComment
 ECHO ################################## STEP 5 ##################################
 ECHO.
 
@@ -378,10 +376,10 @@ TIMEOUT /T 1 > NUL
 
 REM Ask for RL install location
 
-:NotRL
 ECHO.
 ECHO In Steam, right click Rocket League ^> Properties ^> Local Files ^> Browse Local Files . . .
 ECHO.
+:NotRL
 ECHO Copy the directory and paste it here . . .
 ECHO.
 SET /p rldir="Enter Rocket League Install Location (ex. C:\Program Files (x86)\Steam\steamapps\common\rocketleague): "
@@ -396,7 +394,7 @@ IF EXIST "%rldir%\Binaries\RocketLeague.exe" (
 ) ELSE (
     REM Retry if you typed the wrong thing or if it's not there
     ECHO rldir: n >> log.txt
-    ECHO Not there. Try Steam ^> Right click RL ^> Properties ^> Local Files ^> Browse Local Files
+    ECHO Not there. Try Steam ^> Right click RL ^> Properties ^> Local Files ^> Browse Local Files . . .
     GOTO NotRL
 )
 
