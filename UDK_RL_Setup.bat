@@ -29,12 +29,12 @@ ECHO                                    ^│ ^▐^█^│
 ECHO                                    ^│ ^▐^█^│
 ECHO                                 ^▄^▄^▄^│ ^▐^█^│^▄^▄^▄
 ECHO                          ^▄^▄^▄^▄^▀^▀^▀^▀^▀^▀^│ ^▐^█^│^▀^▀^▀^▀^▀^▀^▄^▄^▄^▄
-ECHO                       ▄▀▀▀▀       │  ▐██│       ▀▀▀▀▄
-ECHO                      ▐▌▀   ╲      │  ▐██│      ╱   ▀▐▌
-ECHO                     ▐▌      ╲▀▄   │  ▐██│    ╱▄▀     ▐▌
-ECHO                     ▐▌       ╲ █▄ │  ▐██│  ╱ ▄▀      ▐▌
-ECHO                    ▐▌         ╲ ▀█│  ▐██│ ╱ █▀        ▐▌
-ECHO                    ▐▌          ╲_▀╲  ▐██╱ ▄█          ▐▌
+ECHO                       ^▄^▀^▀^▀^▀       ^│  ^▐^█^█^│       ^▀^▀^▀^▀^▄
+ECHO                      ^▐^▌^▀   ^╲      ^│  ^▐^█^█^│      ^╱   ^▀^▐^▌
+ECHO                     ^▐^▌      ^╲^▀^▄   ^│  ^▐^█^█^│    ^╱^▄^▀     ^▐^▌
+ECHO                     ^▐^▌       ^╲ ^█^▄ ^│  ^▐^█^█^│  ^╱ ^▄^▀      ^▐^▌
+ECHO                    ^▐^▌         ^╲ ^▀^█^│  ^▐^█^█^│ ^╱ ^█^▀        ^▐^▌
+ECHO                    ^▐^▌          ^╲^_^▀^╲  ^▐^█^█^╱ ^▄^█          ^▐^▌
 ECHO                   ▐▌  ___▄▄▄███████╲ ▐█╱‾‾‾‾────____   ▐▌
 ECHO              ___▄▄▄█████████████████╲▐╱             ‾‾‾‾────__
 ECHO        ───═══▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀╳▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄═══───
@@ -263,7 +263,7 @@ REM Copy DummyClasses into the UDK install folder using Robocopy
 
 ECHO Copying Dummy Classes into UDK . . .
 ROBOCOPY "%cd%\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
-ECHO ------------------------------------------------------------------------------
+ECHO ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
 ECHO.
 ECHO dummyclassescopied: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -371,7 +371,7 @@ REM Copy DummyAssets into the UDK folder using Robocopy
 
 ECHO Copying Dummy Assets into UDK . . .
 ROBOCOPY "%cd%\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /xf README.md /xd .git
-ECHO ------------------------------------------------------------------------------
+ECHO ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
 ECHO.
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -514,7 +514,7 @@ ECHO templatesdir: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ROBOCOPY "%scriptdir%\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH UDK_Default.png
-ECHO ------------------------------------------------------------------------------
+ECHO ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
 ECHO.
 ECHO udkdefaultgrid: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -523,7 +523,7 @@ REM Copy Labs_Utopia_P into the Workshop folder using Robocopy
 
 ECHO Creating backup of Labs_Utopia_P . . .
 ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkrootdir%\Workshop " /NFL /NDL /NJH Labs_Utopia_P.upk
-ECHO ------------------------------------------------------------------------------
+ECHO ^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-^-
 ECHO.
 ECHO utopiabackup: y >> log.txt
 TIMEOUT /T 1 > NUL
