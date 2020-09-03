@@ -103,17 +103,8 @@ ECHO.
 ECHO ################################## STEP 1 ##################################
 ECHO.
 TIMEOUT /T 1 > NUL
-ECHO Please take a minute to review this script (but don't change it!)
-ECHO.
-ECHO .BAT files you don't understand can do terrible things
-ECHO.
 ECHO You can stop at any point with Ctrl+C or by closing the window
 ECHO.
-PAUSE
-ECHO.
-
-REM Open this file in notepad
-START notepad %0
 PAUSE
 ECHO.
 
