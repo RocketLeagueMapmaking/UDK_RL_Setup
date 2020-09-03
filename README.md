@@ -2,7 +2,7 @@
 This is a script that will set up the entire UDK environment as it should be for Rocket League MapMaking, from start to finish.
 
 **Please use the download links for UDK and Park_P_Dummy_Assets (these are too large for GitHub)**
-* UDK 2013-02 BETA https://drive.google.com/u/0/uc?export=download&confirm=OViB&id=1IBLYxCDxIgRtMS7V9SizeY_FpHhWEHxo
+* UDK 2015-2 https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing
 * Park_P Dummy Assets https://drive.google.com/u/0/uc?export=download&confirm=I9RK&id=1rpQzqHgoRgpOBSHEpeDwvRtG3sYUXacl
 * Put these within this folder after downloading/cloning
 
