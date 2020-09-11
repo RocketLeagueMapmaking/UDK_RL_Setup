@@ -6,12 +6,12 @@
 * Install with the default settings, using an Empty Game
 ![](https://i.imgur.com/cBThZRf.png)
 
-## How to download with git
+## Skip these steps if you don't know how to use git...
 * git clone https://github.com/Dasoccerguy/RocketLeagueMapMaking
 * cd RocketLeagueMapMaking
 * git submodule update --init
 
-## How to download with buttons
+## Download this script!
 ![](https://i.imgur.com/OUT62cw.png)
 * Download this repository
 * Download https://github.com/ardivee/RL-Dummy-Classes-v3, extract/unzip and place inside /RocketLeagueMapMaking/ after downloading/cloning
