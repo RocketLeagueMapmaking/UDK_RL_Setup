@@ -73,6 +73,7 @@ ECHO ################################## STEP 2 #################################
 ECHO.
 ECHO Once you're ready we'll start the UDK install . . .
 ECHO.
+ECHO printed step 2 text > log.txt
 
 SET udkinstalled=
 SET /p udkinstalled="Do you already have UDK installed? (y/n): "
