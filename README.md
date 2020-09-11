@@ -6,11 +6,6 @@
 * Install with the default settings, using an Empty Game
 ![](https://i.imgur.com/cBThZRf.png)
 
-## Skip these steps if you don't know how to use git...
-* git clone https://github.com/Dasoccerguy/RocketLeagueMapMaking
-* cd RocketLeagueMapMaking
-* git submodule update --init
-
 ## Download this script!
 ![](https://i.imgur.com/OUT62cw.png)
 * Download this repository
