@@ -14,7 +14,7 @@
 ![](https://i.imgur.com/gp5HbCC.png)
 
 ## After downloading
-* Close UDK if you have it open
-* Put the installer in the /RocketLeagueMapMaking/ folder (if you don't already have UDK installed)
+* Close UDK if you have it open!
+* Put the UDKinstaller in the /RocketLeagueMapMaking/ folder (if you don't already have UDK installed)
 * Double click **UDK_RL_Setup.bat**
 * Follow the script, and let me know if you have issues!
