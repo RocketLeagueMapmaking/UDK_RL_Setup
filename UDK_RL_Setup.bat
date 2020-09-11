@@ -100,15 +100,15 @@ IF "%udkdownload%" == "y" (
 
 :GotUDKInstaller
 ECHO.
-ECHO 1 - Select Empty Game for the Project type (we don't need the Starter content)
+ECHO 1 ^- Select Empty Game for the Project type (we don't need the Starter content)
 ECHO.
-ECHO 2- Type in a Project Name such as RLMM, RLMods, mods, or leave it as Custom
+ECHO 2 ^- Type in a Project Name such as RLMM, RLMods, mods, or leave it as Custom
 ECHO.
-ECHO 3 - Make sure the Install Location matches the Project Name
+ECHO 3 ^- Make sure the Install Location matches the Project Name
 ECHO.
-ECHO 4 - Ignore the Perforce offers
+ECHO 4 ^- Ignore the Perforce offers
 ECHO.
-ECHO 5 - Continue onward once UDK finishes installing (~2 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
+ECHO 5 ^- Continue onward once UDK finishes installing (~2 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
 ECHO.
 ECHO udkinstalled: y >> log.txt
 PAUSE
@@ -122,7 +122,7 @@ REM             Move Dummy Classes into the UDK install folder
 
 REM ############################################################################
 
-ECHO ################################## STEP 3 ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# STEP 3 ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 :NotUDK
 ECHO.
 SET /p udkdir="Enter Install Location, including the Project Name (ex. C:\UDK\RLMods): "
@@ -146,7 +146,7 @@ TIMEOUT /T 1 > NUL
 
 ECHO.
 REM Check for DummyClasses in a few places
-ECHO ################################## STEP 4 ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# STEP 4 ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 :NotClasses
 ECHO.
 ECHO Looking for RL Dummy Classes . . .
@@ -205,7 +205,7 @@ REM                       Modify several Unreal files
 REM ############################################################################
 
 :SkipComment
-ECHO ################################## STEP 5 ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# STEP 5 ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 ECHO.
 
 REM Modify DefaultEngine.ini with additions from DummyClasses
@@ -251,7 +251,7 @@ REM                       Set up project folders
 
 REM ############################################################################
 
-ECHO ################################## STEP 6 ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# STEP 6 ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 
 REM Check for DummyAssets
 
@@ -418,7 +418,7 @@ REM               Set up Workshop uploading folder
 
 REM ############################################################################
 
-ECHO ################################## STEP 7 ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# STEP 7 ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 ECHO.
 
 SET steamcmddownload=
@@ -468,16 +468,16 @@ REM                   Open UDK Frontend Program
 
 REM ############################################################################
 
-ECHO ################################## STEP 8 ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# STEP 8 ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 ECHO.
 ECHO Opening UDK Frontend. Please run Script ^> Full Recompile from the top menu . . .
 ECHO.
-ECHO "|‾‾‾‾‾‾‾‾‾‾|" /n
-ECHO "|    ██    |" /n
-ECHO "| Script ▼ |" /n
-ECHO "|‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|" /n
-ECHO "|  Full recompile  |" /n
-ECHO " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " /n
+ECHO ^|^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^|
+ECHO ^|    ^█^█    ^|
+ECHO ^| Script ^▼ ^|
+ECHO ^|^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^|
+ECHO ^|  Full recompile  ^|
+ECHO  ^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾^‾ 
 ECHO.
 
 CD /D "%udkdir%\Binaries"
@@ -491,7 +491,7 @@ ECHO.
 
 REM This is the end :'(
 :TheEnd
-ECHO ################################## THE END ##################################
+ECHO ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^# THE END ^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#^#
 ECHO.
 ECHO yeet: y >> log.txt
 ECHO UDK is ready to go!
