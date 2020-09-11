@@ -10,7 +10,7 @@
 * git submodule update --init
 
 ## How to download with buttons
-![Test Image 4](https://github.com/tograh/testrepository/3DTest.png)
+![](https://i.imgur.com/OUT62cw.png)
 * Download this repository
 * Download https://github.com/ardivee/RL-Dummy-Classes-v3, extract/unzip and place inside /RocketLeagueMapMaking/ after downloading/cloning
 * Download https://github.com/Martinii89/RL_DummyAssets, extract/unzip and place inside /RocketLeagueMapMaking/ after downloading/cloning
