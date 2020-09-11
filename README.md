@@ -3,6 +3,8 @@
 
 **Please use this download link for UDK (too large for GitHub)**
 * UDK 2015-02 https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing
+* Install with the default settings, using an Empty Game
+![](https://i.imgur.com/cBThZRf.png)
 
 ## How to download with git
 * git clone https://github.com/Dasoccerguy/RocketLeagueMapMaking
