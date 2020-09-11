@@ -4,6 +4,7 @@
 **Please use this download link for UDK (too large for GitHub)**
 * UDK 2015-02 https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing
 * Install with the default settings, using an Empty Game
+
 ![](https://i.imgur.com/cBThZRf.png)
 
 ## Download this script and two other repositories
@@ -11,6 +12,7 @@
 * Download this repository
 * Download https://github.com/ardivee/RL-Dummy-Classes-v3, extract/unzip and place inside /RocketLeagueMapMaking/ after downloading/cloning
 * Download https://github.com/Martinii89/RL_DummyAssets, extract/unzip and place inside /RocketLeagueMapMaking/ after downloading/cloning
+
 ![](https://i.imgur.com/gp5HbCC.png)
 
 ## After downloading
