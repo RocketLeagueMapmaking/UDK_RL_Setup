@@ -317,7 +317,7 @@ ECHO.
 ECHO Looking in %rldir% . . .
 ECHO.
 
-IF EXIST "%rldir%\Binaries\RocketLeague.exe" (
+IF EXIST "%rldir%\Binaries\Win64\RocketLeague.exe" (
     ECHO rldir: y >> log.txt
     ECHO Got it!
     GOTO GotRL
