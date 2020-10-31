@@ -15,6 +15,8 @@
 * Double click **UDK_RL_Setup.bat**
 * Follow the script, and let me know if you have issues!
 
+![](https://i.imgur.com/zANMG80.png)
+
 ## Please use this download link for UDK (too large for GitHub)
 * UDK 2015-02 https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing
 * Install with the default settings, using an Empty Game
