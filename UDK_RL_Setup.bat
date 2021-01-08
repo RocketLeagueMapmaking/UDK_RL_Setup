@@ -124,7 +124,7 @@ REM ############################################################################
 ECHO STEP 3
 :NotUDK
 ECHO.
-SET /p udkdir="Enter Install Location, including the Project Name (ex. C:\UDK\RLMods): "
+SET /p udkdir="Enter Install Location, including the Project Name (ex. C:\UDK\RLMM): "
 ECHO.
 ECHO Looking in %udkdir% . . .
 ECHO.
@@ -153,34 +153,34 @@ ECHO.
 TIMEOUT /T 1 > NUL
 
 SET classesdir=
-IF EXIST "%cd%\RL-Dummy-Classes-v3\README.md" (
+IF EXIST "%cd%\RL-Dummy-Classes\README.md" (
     ECHO dummyclasses: git >> log.txt
-    SET classesdir=RL-Dummy-Classes-v3
+    SET classesdir=RL-Dummy-Classes
     ECHO Got it!
     ECHO.
     GOTO GotClasses
-) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\README.md" (
+) ELSE IF EXIST "%cd%\RL-Dummy-Classes-master\README.md" (
     ECHO dummyclasses: dl >> log.txt
-    SET classesdir=RL-Dummy-Classes-v3-master
+    SET classesdir=RL-Dummy-Classes-master
     ECHO Got it!
     ECHO.
     GOTO GotClasses
-) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3\README.md" (
+) ELSE IF EXIST "%cd%\RL-Dummy-Classes-master\RL-Dummy-Classes\README.md" (
     ECHO dummyclasses: nest >> log.txt
-    SET classesdir=RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3
+    SET classesdir=RL-Dummy-Classes-master\RL-Dummy-Classes
     ECHO Got it!
     ECHO.
     GOTO GotClasses
-) ELSE IF EXIST "%cd%\RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3-master\README.md" (
+) ELSE IF EXIST "%cd%\RL-Dummy-Classes-master\RL-Dummy-Classes-master\README.md" (
     ECHO dummyclasses: dlzip >> log.txt
-    SET classesdir=RL-Dummy-Classes-v3-master\RL-Dummy-Classes-v3-master
+    SET classesdir=RL-Dummy-Classes-master\RL-Dummy-Classes-master
     ECHO Got it!
     ECHO.
     GOTO GotClasses
 ) ELSE (
     ECHO dummyclasses: n >> log.txt
     ECHO Folder not found. Please download it to %cd% and unzip it . . .
-    START /Wait "" "https://github.com/ardivee/RL-Dummy-Classes-v3"
+    START /Wait "" "https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes"
     PAUSE
     GOTO NotClasses
 )
