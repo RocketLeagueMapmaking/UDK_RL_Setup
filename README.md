@@ -5,7 +5,7 @@
 ![](https://i.imgur.com/OUT62cw.png)
 * Download this repository
 * Put the UDK installer in the /RocketLeagueMapMaking folder (if you don't already have UDK installed)
-* Download https://github.com/ardivee/RL-Dummy-Classes-v3, extract/unzip and place inside /RocketLeagueMapMaking after downloading
+* Download https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes, extract/unzip and place inside /RocketLeagueMapMaking after downloading
 * Download https://github.com/Martinii89/RL_DummyAssets, extract/unzip and place inside /RocketLeagueMapMaking after downloading
 
 ![](https://i.imgur.com/iZAcTUr.png)
