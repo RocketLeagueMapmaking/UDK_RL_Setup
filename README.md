@@ -8,7 +8,7 @@
 * Download https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes, extract/unzip and place inside /RocketLeagueMapMaking after downloading
 * Download https://github.com/Martinii89/RL_DummyAssets, extract/unzip and place inside /RocketLeagueMapMaking after downloading
 
-![](https://i.imgur.com/iZAcTUr.png)
+![](https://i.imgur.com/PObnykE.png)
 
 ## Once everything is downloaded:
 * Close UDK if you have it open!
