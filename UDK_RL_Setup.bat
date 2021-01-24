@@ -199,7 +199,7 @@ GOTO SkipComment
 
 REM ############################################################################
 
-REM                       Modify several Unreal files
+REM                       Modify .ini File
 
 REM ############################################################################
 
@@ -214,33 +214,6 @@ ECHO.
 pushd %~dp0
 CSCRIPT //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\DefaultEngine.ini"
 ECHO defaultengineini: y >> log.txt
-TIMEOUT /T 1 > NUL
-
-REM Modify StaticMeshActor.uc
-
-ECHO Modifying StaticMeshActor.uc . . .
-ECHO.
-pushd %~dp0
-CSCRIPT //NoLogo Goodies\ModifyStaticMeshActor.vbs "%udkdir%\Development\Src\Engine\Classes\StaticMeshActor.uc"
-ECHO staticmeshactoruc: y >> log.txt
-TIMEOUT /T 1 > NUL
-
-REM Modify Actor.uc
-
-ECHO Modifying Actor.uc . . .
-ECHO.
-pushd %~dp0
-CSCRIPT //NoLogo Goodies\ModifyActor.vbs "%udkdir%\Development\Src\Engine\Classes\Actor.uc"
-ECHO actoruc: y >> log.txt
-TIMEOUT /T 1 > NUL
-
-REM Modify PrimitiveComponent.uc
-
-ECHO Modifying PrimitiveComponent.uc . . .
-ECHO.
-pushd %~dp0
-CSCRIPT //NoLogo Goodies\ModifyPrimitiveComponent.vbs "%udkdir%\Development\Src\Engine\Classes\PrimitiveComponent.uc"
-ECHO primitivecomponentuc: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 
