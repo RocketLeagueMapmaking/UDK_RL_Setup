@@ -124,7 +124,7 @@ REM ############################################################################
 ECHO STEP 3
 :NotUDK
 ECHO.
-SET /p udkdir="Enter Install Location, including the Project Name (ex. C:\UDK\RLMM): "
+SET /p udkdir="Enter Install Location, including the Project Name (e.g. C:\UDK\RLMM): "
 ECHO.
 ECHO Looking in %udkdir% . . .
 ECHO.
