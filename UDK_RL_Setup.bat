@@ -92,7 +92,7 @@ IF "%udkdownload%" == "y" (
     ECHO.
     ECHO downloadudk: y >> log.txt
     ECHO Move it to this folder when it finished downloading . . .
-    ECHO (try a different browser if the download fails)
+    ECHO "(try a different browser if the download fails)"
     PAUSE
     GOTO NotUDKInstaller
 )
@@ -456,6 +456,9 @@ REM This is the end :'(
 ECHO THE END
 ECHO.
 ECHO yeet: y >> log.txt
+ECHO You may see some yellow warning text, but no red errors
+ECHO The very bottom line should read: COMMANDLET 'UDK.exe make -full' SUCCEEDED
+ECHO.
 ECHO UDK is ready to go!
 ECHO.
 ECHO Close Unreal Frontend and open UDK!
