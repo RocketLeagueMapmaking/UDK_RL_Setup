@@ -280,8 +280,47 @@ TIMEOUT /T 1 > NUL
 REM Ask to download rebuilt Park_P.upk
 
 ECHO.
-ECHO In Steam, right click Rocket League ^> Properties ^> Local Files ^> Browse Local Files . . .
+SET parkpdownload=
+SET /p parkpdownload="New to UDK? Download this beginner-friendly version of Park_P.upk (y/n): "
+    ECHO.
+IF "%parkpdownload%" == "y" (
+    ECHO parkpdownload: y >> log.txt
+    START "" "https://drive.google.com/u/0/uc?id=1rpQzqHgoRgpOBSHEpeDwvRtG3sYUXacl&export=download"
+    ECHO Downloading . . .
+    ECHO.
+    ECHO Please move it to %~dp0
+    ECHO.
+    PAUSE
+    ECHO.
+)
+
+IF EXIST "%~dp0\Park_P.upk" (
+    ECHO parkpcopy: y >> log.txt
+    ECHO Got it^^!
+    ECHO.
+    ECHO Copying Park_P into Dummy Assets . . .
+    ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets\Maps\BeckwithPark " /NFL /NDL /NJH Park_P.upk
+    ECHO.
+    ECHO dummyassetscopied: y >> log.txt
+    TIMEOUT /T 1 > NUL
+)
+
+REM Ask for RL install location
+
 ECHO.
+:SteamOrEpic
+
+SET /p steamepic="Steam or Epic Launcher (s/e): "
+IF "%steamepic%" == "s" (
+    ECHO.
+    ECHO In Steam, right click Rocket League ^> Properties ^> Local Files ^> Browse Local Files
+    ECHO.
+    ECHO Copy the directory and paste it here ^(e.g. C:\Program Files ^(x86^)\Steam\steamapps\common\rocketleague^) . . .
+) ELSE (
+    ECHO.
+    ECHO Copy the directory and paste it here ^(e.g. C:\Program Files\Epic Games\rocketleague^) . . .
+)
+
 :NotRL
 ECHO.
 SET rldir=
@@ -296,7 +335,10 @@ IF EXIST "%rldir%\Binaries\Win64\RocketLeague.exe" (
 ) ELSE (
     REM Retry if you typed the wrong thing or if it's not there
     ECHO rldir: n >> log.txt
-    ECHO Not there. Try Steam ^> Right click RL ^> Properties ^> Local Files ^> Browse Local Files . . .
+    ECHO Not there.
+    IF "%steamepic%" == "s" (
+        ECHO Try Steam ^> Right click RL ^> Properties ^> Local Files ^> Browse Local Files
+    )
     GOTO NotRL
 )
 
@@ -325,10 +367,13 @@ CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkdir%\UDKGame\Content\Maps\Cooke
 ECHO cookedshortcut: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-REM Create shortcuts to Steam Workshop and put it UDK Maps and RL Mods folders
+IF "%steamepic%" NEQ "s" (
+    GOTO SkipWorkshopShortcuts
+)
+
+REM Create shortcuts to Steam Workshop and put it in UDK Maps and RL Mods folders
 ECHO Creating shortcuts to Steam Workshop . . .
 ECHO.
-SET "scriptdir=%cd%"
 
 CD /D "%rldir%"
 CD ..
@@ -346,6 +391,9 @@ CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%rldir%\TAGame\CookedPCConsole\mods
 ECHO workshopshortcut: y >> log.txt
 
 TIMEOUT /T 1 > NUL
+
+
+:SkipWorkshopShortcuts
 
 REM Create shortcut to UDK Maps folder and put it up a few levels
 ECHO Creating shortcuts to UDK Maps and a good folder structure . . .
