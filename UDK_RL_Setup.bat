@@ -55,13 +55,13 @@ ECHO.
 
 
 REM Look for the UDK 2015 Installer program and start it
-if exist UDKInstall-2015-02.exe (
+IF EXIST UDKInstall-2015-02.exe (
     ECHO udkinstallerfound: y >> log.txt
-    ECHO Got it! Opening the installer . . .
+    ECHO Got it^^! Opening the installer . . .
     ECHO.
     START UDKInstall-2015-02.exe
     GOTO GotUDKInstaller
-) else (
+) ELSE (
     ECHO udkinstallerfound: n >> log.txt
     ECHO Could not find UDK Installer . . .
     ECHO.
@@ -105,7 +105,7 @@ ECHO.
 ECHO 4 - Ignore the Perforce offers
 TIMEOUT /T 1 > NUL
 ECHO.
-ECHO 5 - Continue onward once UDK finishes installing (2-5 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
+ECHO 5 - Continue onward once UDK finishes installing ^(2-5 minutes^). Return to Desktop and/or close UDK after it completely finishes . . .
 TIMEOUT /T 1 > NUL
 ECHO.
 ECHO udkinstalled: y >> log.txt
@@ -131,7 +131,7 @@ ECHO.
 
 IF EXIST "%udkdir%\Binaries\Win64\UDK.exe" (
     ECHO udkdir: y >> log.txt
-    ECHO Got it!
+    ECHO Got it^^!
     GOTO GotUDK
 ) ELSE (
     REM Retry if you typed the wrong thing or if it's not there
@@ -277,22 +277,21 @@ ECHO.
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-REM Ask for RL install location
+REM Ask to download rebuilt Park_P.upk
 
 ECHO.
 ECHO In Steam, right click Rocket League ^> Properties ^> Local Files ^> Browse Local Files . . .
 ECHO.
 :NotRL
-ECHO Copy the directory and paste it here . . .
 ECHO.
-SET /p rldir="Enter Rocket League Install Location (ex. C:\Program Files (x86)\Steam\steamapps\common\rocketleague): "
+SET rldir=
+SET /p rldir="Enter Rocket League Install Location: "
 ECHO.
 ECHO Looking in %rldir% . . .
 ECHO.
-
 IF EXIST "%rldir%\Binaries\Win64\RocketLeague.exe" (
     ECHO rldir: y >> log.txt
-    ECHO Got it!
+    ECHO Got it^^!
     GOTO GotRL
 ) ELSE (
     REM Retry if you typed the wrong thing or if it's not there
@@ -457,11 +456,11 @@ ECHO THE END
 ECHO.
 ECHO yeet: y >> log.txt
 ECHO You may see some yellow warning text, but no red errors
-ECHO The very bottom line should read: COMMANDLET 'UDK.exe make -full' SUCCEEDED
+ECHO The very bottom line should read: COMMANDLET ^'UDK.exe make -full^' SUCCEEDED
 ECHO.
-ECHO UDK is ready to go!
+ECHO UDK is ready to go^^!
 ECHO.
-ECHO Close Unreal Frontend and open UDK!
+ECHO Close Unreal Frontend and open UDK^^!
 ECHO.
 ECHO gg
 ECHO.
