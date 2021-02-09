@@ -3,16 +3,7 @@ CHCP 65001 > NUL
 
 REM This is a comment. Welcome to the script!
 
-REM Here's a cool logo to draw in the console!
-
-setlocal disableDelayedExpansion
-
-REM ############################################################################
-
-REM             THIS IS THE START OF THE ACTUAL SCRIPT
-
-REM ############################################################################
-
+setlocal EnableDelayedExpansion
 
 ECHO. 
 
@@ -46,7 +37,6 @@ ECHO STEP 2
 ECHO.
 ECHO Once you're ready we'll start the UDK install . . .
 ECHO.
-ECHO printed step 2 text > log.txt
 
 SET udkinstalled=
 SET /p udkinstalled="Do you already have UDK installed? (y/n): "
@@ -56,7 +46,6 @@ IF "%udkinstalled%" == "y" (
     ECHO Fantastic news! Now to make some changes . . .
     ECHO.
     GOTO SkipUDKInstaller
-    ECHO Skipping UDK install step
     ECHO.
 )
 
@@ -91,26 +80,37 @@ IF "%udkdownload%" == "y" (
     START "" "https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing"
     ECHO.
     ECHO downloadudk: y >> log.txt
-    ECHO Move it to this folder when it finished downloading . . .
-    ECHO "(try a different browser if the download fails)"
+    ECHO Move it to %~dp0 after downloading . . .
+    ECHO ^(try a different browser if the download fails^)
     PAUSE
     GOTO NotUDKInstaller
+) ELSE (
+    ECHO.
+    ECHO downloadudk: n >> log.txt
+    ECHO Please start the UDK Installer yourself . . .
+    TIMEOUT /T 1 > NUL
 )
 
 :GotUDKInstaller
 ECHO.
-ECHO 1 - Select Empty Game for the Project type (we don't need the Starter content)
+ECHO 1 - Select Empty Game for the Project type ^(Starter Content will break Rocket League^)
+TIMEOUT /T 1 > NUL
 ECHO.
 ECHO 2 - Type in a Project Name such as RLMM, RLMods, mods, or leave it as Custom
+TIMEOUT /T 1 > NUL
 ECHO.
 ECHO 3 - Make sure the Install Location matches the Project Name
+TIMEOUT /T 1 > NUL
 ECHO.
 ECHO 4 - Ignore the Perforce offers
+TIMEOUT /T 1 > NUL
 ECHO.
-ECHO 5 - Continue onward once UDK finishes installing (~2 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
+ECHO 5 - Continue onward once UDK finishes installing (2-5 minutes). Return to Desktop and/or close UDK after it completely finishes . . .
+TIMEOUT /T 1 > NUL
 ECHO.
 ECHO udkinstalled: y >> log.txt
 PAUSE
+ECHO.
 
 :SkipUDKInstaller
 
@@ -318,7 +318,7 @@ REM                    Create a bunch of useful shortcuts
 REM ############################################################################
 
 
-REM Create shortcut to CookedPCConsole and put it UDK Maps folder
+REM Create shortcut to CookedPCConsole and put it in UDK Maps folder
 ECHO Creating shortcuts to CookedPCConsole . . .
 ECHO.
 
