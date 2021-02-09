@@ -67,7 +67,7 @@ IF EXIST UDKInstall-2015-02.exe (
     ECHO.
     CALL :DownloadUDK
     ECHO.
-    ECHO Move the UDK Installer to this folder pls
+    ECHO Move the UDK Installer to %~dp0
     ECHO.
     PAUSE
     GOTO NotUDKInstaller
@@ -153,33 +153,33 @@ ECHO.
 TIMEOUT /T 1 > NUL
 
 SET classesdir=
-IF EXIST "%cd%\RL-Dummy-Classes\README.md" (
+IF EXIST "%~dp0\RL-Dummy-Classes\README.md" (
     ECHO dummyclasses: git >> log.txt
     SET classesdir=RL-Dummy-Classes
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotClasses
-) ELSE IF EXIST "%cd%\RL-Dummy-Classes-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL-Dummy-Classes-master\README.md" (
     ECHO dummyclasses: dl >> log.txt
     SET classesdir=RL-Dummy-Classes-master
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotClasses
-) ELSE IF EXIST "%cd%\RL-Dummy-Classes-master\RL-Dummy-Classes\README.md" (
+) ELSE IF EXIST "%~dp0\RL-Dummy-Classes-master\RL-Dummy-Classes\README.md" (
     ECHO dummyclasses: nest >> log.txt
     SET classesdir=RL-Dummy-Classes-master\RL-Dummy-Classes
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotClasses
-) ELSE IF EXIST "%cd%\RL-Dummy-Classes-master\RL-Dummy-Classes-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL-Dummy-Classes-master\RL-Dummy-Classes-master\README.md" (
     ECHO dummyclasses: dlzip >> log.txt
     SET classesdir=RL-Dummy-Classes-master\RL-Dummy-Classes-master
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotClasses
 ) ELSE (
     ECHO dummyclasses: n >> log.txt
-    ECHO Folder not found. Please download it to %cd% and unzip it . . .
+    ECHO Folder not found. Please download it to %~dp0 and unzip it . . .
     START /Wait "" "https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes"
     PAUSE
     GOTO NotClasses
@@ -190,7 +190,7 @@ IF EXIST "%cd%\RL-Dummy-Classes\README.md" (
 REM Copy DummyClasses into the UDK install folder using Robocopy
 
 ECHO Copying Dummy Classes into UDK . . .
-ROBOCOPY "%cd%\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
+ROBOCOPY "%~dp0\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
 
 ECHO dummyclassescopied: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -233,33 +233,33 @@ ECHO Looking for RL Dummy Assets . . .
 ECHO.
 
 SET assetsdir=
-IF EXIST "%cd%\RL_DummyAssets\README.md" (
+IF EXIST "%~dp0\RL_DummyAssets\README.md" (
     ECHO dummyassets: git >> log.txt
     SET assetsdir=RL_DummyAssets
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%cd%\RL_DummyAssets-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL_DummyAssets-master\README.md" (
     ECHO dummyassets: dl >> log.txt
     SET assetsdir=RL_DummyAssets-master
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%cd%\RL_DummyAssets-master\RL_DummyAssets\README.md" (
+) ELSE IF EXIST "%~dp0\RL_DummyAssets-master\RL_DummyAssets\README.md" (
     ECHO dummyassets: nest >> log.txt
     SET assetsdir=RL_DummyAssets-master\RL_DummyAssets
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%cd%\RL_DummyAssets-master\RL_DummyAssets-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL_DummyAssets-master\RL_DummyAssets-master\README.md" (
     ECHO dummyassets: zip >> log.txt
     SET assetsdir=RL_DummyAssets-master\RL_DummyAssets-master
-    ECHO Got it!
+    ECHO Got it^^!
     ECHO.
     GOTO GotAssets
 ) ELSE (
     ECHO dummyassets: n >> log.txt
-    ECHO Folder not found. Please download it to %cd% and unzip it . . .
+    ECHO Folder not found. Please download it to %~dp0 and unzip it . . .
     ECHO.
     START /Wait "" "https://github.com/Martinii89/RL_DummyAssets"
     PAUSE
@@ -272,7 +272,7 @@ IF EXIST "%cd%\RL_DummyAssets\README.md" (
 REM Copy DummyAssets into the UDK folder using Robocopy
 
 ECHO Copying Dummy Assets into UDK . . .
-ROBOCOPY "%cd%\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /xf README.md /xd .git
+ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /xf README.md /xd .git
 ECHO.
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -337,7 +337,7 @@ CD workshop
 CD content
 CD "252950"
 SET "workshopdir=%cd%"
-CD /D "%scriptdir%"
+CD /D %~dp0
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkdir%\UDKGame\Content\Maps\RLWorkshop.lnk" "%workshopdir%"
 ECHO workshopshortcut: y >> log.txt
@@ -365,7 +365,7 @@ MKDIR Meshes
 CD Meshes
 MKDIR DefaultMap
 MKDIR Test
-CD /D "%scriptdir%"
+CD /D %~dp0
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\UDK Maps.lnk" "%udkdir%\UDKGame\Content\Maps"
 ECHO mapsshortcut: y >> log.txt
@@ -413,7 +413,7 @@ cscript //NoLogo Goodies\BuildTemplateVDF.vbs "%udkrootdir%\Workshop\Template"
 ECHO templatesdir: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-ROBOCOPY "%scriptdir%\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH UDK_Default.png
+ROBOCOPY "%~dp0\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH UDK_Default.png
 ECHO.
 ECHO udkdefaultgrid: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -444,7 +444,7 @@ ECHO.
 CD /D "%udkdir%\Binaries"
 START UnrealFrontend.exe
 ECHO unrealfrontend: y >> log.txt
-CD /D "%scriptdir%"
+CD /D %~dp0
 
 PAUSE
 ECHO.
