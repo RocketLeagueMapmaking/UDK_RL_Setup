@@ -23,7 +23,7 @@ ECHO.
 TIMEOUT /T 1 > NUL
 ECHO You can stop at any point with Ctrl+C or by closing the window
 ECHO.
-ECHO started > log.txt
+ECHO v20210211 > log.txt
 PAUSE
 ECHO.
 
@@ -475,7 +475,6 @@ ECHO utopiabackup: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REN "%udkrootdir%\Workshop\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk > NUL
-DEL "%udkrootdir%\Workshop\Labs_Utopia_P.upk" > NUL
 ECHO.
 
 REM ############################################################################
