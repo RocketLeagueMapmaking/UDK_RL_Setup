@@ -507,7 +507,10 @@ ECHO The very bottom line should read: COMMANDLET ^'UDK.exe make -full^' SUCCEED
 ECHO.
 ECHO UDK is ready to go^^!
 ECHO.
-ECHO Close Unreal Frontend and open UDK^^!
+ECHO Close Unreal Frontend and let's launch UDK^^!
+ECHO.
+CD /D "%udkdir%\Binaries"
+START UDKLift.exe editor
 ECHO.
 ECHO gg
 ECHO.
