@@ -216,6 +216,15 @@ CSCRIPT //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\Defaul
 ECHO defaultengineini: y >> log.txt
 TIMEOUT /T 1 > NUL
 
+REM Modify UDKEngine.ini to fix slow UDK loading
+
+ECHO Modifying UDKEngine.ini . . .
+ECHO.
+pushd %~dp0
+CSCRIPT //NoLogo Goodies\ModifyUDKEngine.vbs "%udkdir%\UDKGame\Config\UDKEngine.ini"
+ECHO udkengineini: y >> log.txt
+TIMEOUT /T 1 > NUL
+
 
 REM ############################################################################
 
