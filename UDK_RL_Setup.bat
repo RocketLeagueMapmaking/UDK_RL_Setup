@@ -498,12 +498,31 @@ ECHO.
 ECHO Adding map templates . . .
 ECHO.
 
-ECHO Copying dropshot template . . .
+ECHO Copying Soccar Template . . .
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Soccar.umap
+ECHO.
+ECHO templatesoccar: y >> log.txt
+TIMEOUT /T 1 > NUL
+
+ECHO Copying Hoops Template . . .
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Hoops.umap
+ECHO.
+ECHO templatehoops: y >> log.txt
+TIMEOUT /T 1 > NUL
+
+ECHO Copying Dropshot Template . . .
 ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Dropshot.umap
 ECHO.
 ECHO templatedropshot: y >> log.txt
 TIMEOUT /T 1 > NUL
 
+ECHO Copying Test Template . . .
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Test.umap
+ECHO.
+ECHO templatetest: y >> log.txt
+TIMEOUT /T 1 > NUL
+
+ECHO Copying Template List . . .
 ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content " /NFL /NDL /NJH MapTemplateIndex.upk
 ECHO.
 ECHO maptemplateindex: y >> log.txt
@@ -511,7 +530,7 @@ TIMEOUT /T 1 > NUL
 
 ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Localization\INT " /NFL /NDL /NJH EditorMapTemplates.int
 ECHO.
-ECHO templatedropshot: y >> log.txt
+ECHO editormaptemplates: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 
@@ -540,7 +559,7 @@ REM This is the end :'(
 ECHO THE END
 ECHO.
 ECHO yeet: y >> log.txt
-ECHO You may see some yellow warning text, but no red errors
+ECHO You may see some yellow warning text, but ask for help if you see red errors
 ECHO The very bottom line should read: COMMANDLET ^'UDK.exe make -full^' SUCCEEDED
 ECHO.
 ECHO UDK is ready to go^^!
