@@ -486,13 +486,42 @@ TIMEOUT /T 1 > NUL
 REN "%udkrootdir%\Workshop\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk > NUL
 ECHO.
 
+
+REM ############################################################################
+
+REM                   Add map templates
+
+REM ############################################################################
+
+ECHO STEP 8
+ECHO.
+ECHO Adding map templates . . .
+ECHO.
+
+ECHO Copying dropshot template . . .
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Dropshot.umap
+ECHO.
+ECHO templatedropshot: y >> log.txt
+TIMEOUT /T 1 > NUL
+
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content " /NFL /NDL /NJH MapTemplateIndex.upk
+ECHO.
+ECHO maptemplateindex: y >> log.txt
+TIMEOUT /T 1 > NUL
+
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Localization\INT " /NFL /NDL /NJH EditorMapTemplates.int
+ECHO.
+ECHO templatedropshot: y >> log.txt
+TIMEOUT /T 1 > NUL
+
+
 REM ############################################################################
 
 REM                   Open UDK Frontend Program
 
 REM ############################################################################
 
-ECHO STEP 8
+ECHO STEP 9
 ECHO.
 ECHO Opening UDK Frontend. Do Script ^> Full Recompile from the top menu . . .
 ECHO.
