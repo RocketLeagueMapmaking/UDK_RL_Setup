@@ -1,5 +1,5 @@
 # PLEASE READ EVERYTHING BELOW
-**UDK_RL_Setup.bat** is a script that will set up the entire UDK environment as it should be for Rocket League MapMaking, from start to finish. **Simply download this repository and run the script!** 
+**UDK_RL_Setup.bat** is a script that will set up the entire UDK environment as it should be for Rocket League MapMaking, from start to finish. **Simply download a few things and run the script!** 
 
 ## Download this script and two other repositories from GitHub:
 ![](https://i.imgur.com/OUT62cw.png)
