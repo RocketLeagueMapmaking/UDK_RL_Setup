@@ -24,4 +24,4 @@
 ![](https://i.imgur.com/cBThZRf.png)
 ![](https://i.imgur.com/63dfUVx.png)
 
-Ignore the Perforce server and other marketing offers.
+Ignore the Perforce server and other offers.
