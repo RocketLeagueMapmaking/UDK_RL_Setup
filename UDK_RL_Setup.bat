@@ -286,34 +286,6 @@ ECHO.
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-REM Ask to download rebuilt Park_P.upk
-
-ECHO.
-SET parkpdownload=
-SET /p parkpdownload="New to UDK? Download this beginner-friendly version of Park_P.upk (y/n): "
-    ECHO.
-IF "%parkpdownload%" == "y" (
-    ECHO parkpdownload: y >> log.txt
-    START "" "https://drive.google.com/u/0/uc?id=1rpQzqHgoRgpOBSHEpeDwvRtG3sYUXacl&export=download"
-    ECHO Downloading . . .
-    ECHO.
-    ECHO Please move it to %~dp0
-    ECHO.
-    PAUSE
-    ECHO.
-)
-
-IF EXIST "%~dp0\Park_P.upk" (
-    ECHO parkpcopy: y >> log.txt
-    ECHO Got it^^!
-    ECHO.
-    ECHO Copying Park_P into Dummy Assets . . .
-    ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets\Maps\BeckwithPark " /NFL /NDL /NJH Park_P.upk
-    ECHO.
-    ECHO dummyassetscopied: y >> log.txt
-    TIMEOUT /T 1 > NUL
-)
-
 REM Ask for RL install location
 
 ECHO.
@@ -536,39 +508,34 @@ TIMEOUT /T 1 > NUL
 
 REM ############################################################################
 
-REM                   Open UDK Frontend Program
+REM                   Recompile UDK
 
 REM ############################################################################
 
 ECHO STEP 9
 ECHO.
-ECHO Opening UDK Frontend. Do Script ^> Full Recompile from the top menu . . .
+ECHO Recompiling UDK with all of these changes
 ECHO.
-
-CD /D "%udkdir%\Binaries"
-START UnrealFrontend.exe
+CD /D "%udkdir%\Binaries\Win64"
+START UDK.exe make -full
+ECHO.
+ECHO The very bottom line should read: Success 0 error(s)
+ECHO We don't care about the warnings
+ECHO.
+ECHO Close that console window
 ECHO unrealfrontend: y >> log.txt
 CD /D %~dp0
-
 PAUSE
 ECHO.
-
+ECHO Let's launch UDK^^!
 
 REM This is the end :'(
 :TheEnd
-ECHO THE END
-ECHO.
-ECHO yeet: y >> log.txt
-ECHO You may see some yellow warning text, but ask for help if you see red errors
-ECHO The very bottom line should read: COMMANDLET ^'UDK.exe make -full^' SUCCEEDED
-ECHO.
-ECHO UDK is ready to go^^!
-ECHO.
-ECHO Close Unreal Frontend and let's launch UDK^^!
 ECHO.
 CD /D "%udkdir%\Binaries"
 START UDKLift.exe editor
 ECHO.
 ECHO gg
+ECHO gg: y >> log.txt
 ECHO.
 PAUSE
