@@ -190,7 +190,7 @@ IF EXIST "%~dp0\RL-Dummy-Classes\README.md" (
 REM Copy DummyClasses into the UDK install folder using Robocopy
 
 ECHO Copying Dummy Classes into UDK . . .
-ROBOCOPY "%~dp0\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /xf README.md /xd .git
+ROBOCOPY "%~dp0\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
 
 ECHO dummyclassescopied: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -281,7 +281,7 @@ IF EXIST "%~dp0\RL_DummyAssets\README.md" (
 REM Copy DummyAssets into the UDK folder using Robocopy
 
 ECHO Copying Dummy Assets into UDK . . .
-ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /xf README.md /xd .git
+ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
 ECHO.
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -389,11 +389,17 @@ MKDIR Template
 CD ..
 MKDIR Assets
 CD Assets
-MKDIR Textures
-MKDIR Meshes
-CD Meshes
-MKDIR DefaultMap
+MKDIR Audio
+MKDIR Balls
+MKDIR Cars
+MKDIR Brushes
+MKDIR Hats
+MKDIR Maps
+MKDIR Packs
 MKDIR Test
+MKDIR Textures
+CD Maps
+MKDIR MyFirstMap
 CD /D %~dp0
 
 CSCRIPT //NoLogo Goodies\CreateShortcut.vbs "%udkrootdir%\UDK Maps.lnk" "%udkdir%\UDKGame\Content\Maps"
@@ -442,7 +448,7 @@ cscript //NoLogo Goodies\BuildTemplateVDF.vbs "%udkrootdir%\Workshop\Template"
 ECHO templatesdir: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-ROBOCOPY "%~dp0\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH UDK_Default.png
+ROBOCOPY "%~dp0\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH /NJS UDK_Default.png
 ECHO.
 ECHO udkdefaultgrid: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -450,7 +456,7 @@ TIMEOUT /T 1 > NUL
 REM Copy Labs_Utopia_P into the Workshop folder using Robocopy
 
 ECHO Creating backup of Labs_Utopia_P . . .
-ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkrootdir%\Workshop " /NFL /NDL /NJH Labs_Utopia_P.upk
+ROBOCOPY "%rldir%\TAGame\CookedPCConsole " "%udkrootdir%\Workshop " /NFL /NDL /NJH /NJS Labs_Utopia_P.upk
 ECHO.
 ECHO utopiabackup: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -471,36 +477,36 @@ ECHO Adding map templates . . .
 ECHO.
 
 ECHO Copying Soccar Template . . .
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Soccar.umap
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH /NJS Template_Soccar.umap
 ECHO.
 ECHO templatesoccar: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ECHO Copying Hoops Template . . .
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Hoops.umap
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH /NJS Template_Hoops.umap
 ECHO.
 ECHO templatehoops: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ECHO Copying Dropshot Template . . .
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Dropshot.umap
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH /NJS Template_Dropshot.umap
 ECHO.
 ECHO templatedropshot: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ECHO Copying Test Template . . .
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH Template_Test.umap
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH /NJS Template_Test.umap
 ECHO.
 ECHO templatetest: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ECHO Copying Template List . . .
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content " /NFL /NDL /NJH MapTemplateIndex.upk
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content " /NFL /NDL /NJH /NJS MapTemplateIndex.upk
 ECHO.
 ECHO maptemplateindex: y >> log.txt
 TIMEOUT /T 1 > NUL
 
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Localization\INT " /NFL /NDL /NJH EditorMapTemplates.int
+ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Localization\INT " /NFL /NDL /NJH /NJS EditorMapTemplates.int
 ECHO.
 ECHO editormaptemplates: y >> log.txt
 TIMEOUT /T 1 > NUL
