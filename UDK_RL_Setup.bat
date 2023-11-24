@@ -1,9 +1,17 @@
 @ECHO OFF
 CHCP 65001 > NUL
+SETLOCAL EnableDelayedExpansion
 
 REM This is a comment. Welcome to the script!
 
-setlocal EnableDelayedExpansion
+REM ############################################################################
+
+REM     This script automatically restarts itself in Administrative mode
+
+REM ############################################################################
+
+set "params=%*"
+cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && ""%~s0"" %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
 
 ECHO. 
 
@@ -21,9 +29,9 @@ ECHO.
 ECHO STEP 1
 ECHO.
 TIMEOUT /T 1 > NUL
-ECHO You can stop at any point with Ctrl+C or by closing the window
+ECHO You can stop at any point by closing the window
 ECHO.
-ECHO v20230910 > log.txt
+ECHO v20231123 > log.txt
 PAUSE
 ECHO.
 
@@ -119,42 +127,32 @@ ECHO STEP 3
 :NotUDK
 ECHO.
 ECHO Locating UDK . . .
-SET "process=UDK.exe"
-SET "program=UDK"
+SETLOCAL
 
-for /f "usebackq delims=" %%p in (`wmic process where "name='%process%'"
-                                   get executablepath /value 2^>nul ^| findstr ^=`) do (
+for /f "usebackq delims=" %%p in (`wmic process where "name='UDK.exe'"
+                                   get executablePath /value 2^>nul ^| findstr ^=`) do (
   set %%p
 )
 
-if defined executablePath (
+IF DEFINED executablePath (
   ECHO.
+  ECHO Found %executablePath%
+  SET udkdir="%executablePath:~0,-24%"
+  ECHO.
+  GOTO GotUDK
 )^
-else (
+ELSE (
   ECHO.
-  ECHO Please start %program% before continuing
+  ECHO Please start UDK before continuing
   ECHO.
   PAUSE
   GOTO NotUDK
 )
 
-SET udkdir=
-CALL :getUdkFolder "%executablePath%"
-
-IF EXIST "%udkdir%\Binaries\Win64\UDK.exe" (
-    ECHO udkdir: y >> log.txt
-    ECHO Got it^^!
-    GOTO GotUDK
-) ELSE (
-    REM Retry if it's not there
-    ECHO udkdir: n >> log.txt
-    ECHO "%udkdir%"
-    PAUSE
-    GOTO NotUDK
-)
-
 :GotUDK
-TIMEOUT /T 1 > NUL
+ECHO Closing UDK . . .
+TASKKILL /im UDK.exe > NUL
+TIMEOUT /T 5 > NUL
 
 REM ############################################################################
 
@@ -165,6 +163,7 @@ REM ############################################################################
 REM Check for DummyClasses in a few places
 ECHO.
 ECHO STEP 4
+ECHO.
 ECHO Downloading and unzipping Dummy Classes . . .
 SET URL=https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes/archive/refs/heads/master.zip
 SET ZIP="D:\RocketLeagueMapmaking\UDK RL Setup\RL-Dummy-Classes.zip"
@@ -233,7 +232,6 @@ REM Modify DefaultEngine.ini with additions from DummyClasses
 
 ECHO Modifying DefaultEngine.ini . . .
 ECHO.
-PUSHD %~dp0
 CSCRIPT //NoLogo Goodies\ModifyDefaultEngine.vbs "%udkdir%\UDKGame\Config\DefaultEngine.ini"
 ECHO defaultengineini: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -242,7 +240,6 @@ REM Modify UDKEngine.ini to fix slow UDK loading
 
 ECHO Modifying UDKEngine.ini . . .
 ECHO.
-PUSHD %~dp0
 CSCRIPT //NoLogo Goodies\ModifyUDKEngine.vbs "%udkdir%\UDKGame\Config\UDKEngine.ini"
 ECHO udkengineini: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -255,39 +252,39 @@ REM                       Set up project folders
 REM ############################################################################
 
 ECHO STEP 6
-
-REM Check for DummyAssets
-ECHO Downloading and unzipping Dummy Assets . . .
 ECHO.
-SET URL=https://github.com/RocketLeagueMapmaking/RL_DummyAssets/archive/refs/heads/master.zip
-SET ZIP="D:\RocketLeagueMapmaking\UDK RL Setup\RL_DummyAssets.zip"
+
+REM Check for NotSoDummyAssets
+ECHO Downloading and unzipping Dummy Assets . . .
+SET URL=https://github.com/RocketLeagueMapmaking/RL_NotSoDummyAssets/archive/refs/heads/main.zip
+SET ZIP="D:\RocketLeagueMapmaking\UDK RL Setup\RL_NotSoDummyAssets.zip"
 POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
 CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotAssets
 ECHO.
 
 SET assetsdir=
-IF EXIST "%~dp0\RL_DummyAssets\README.md" (
+IF EXIST "%~dp0\RL_NotSoDummyAssets\README.md" (
     ECHO dummyassets: git >> log.txt
-    SET assetsdir=RL_DummyAssets
+    SET assetsdir=RL_NotSoDummyAssets
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_DummyAssets-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-master\README.md" (
     ECHO dummyassets: dl >> log.txt
-    SET assetsdir=RL_DummyAssets-master
+    SET assetsdir=RL_NotSoDummyAssets-master
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_DummyAssets-master\RL_DummyAssets\README.md" (
+) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-master\RL_NotSoDummyAssets\README.md" (
     ECHO dummyassets: nest >> log.txt
-    SET assetsdir=RL_DummyAssets-master\RL_DummyAssets
+    SET assetsdir=RL_NotSoDummyAssets-master\RL_NotSoDummyAssets
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_DummyAssets-master\RL_DummyAssets-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-master\RL_NotSoDummyAssets-master\README.md" (
     ECHO dummyassets: zip >> log.txt
-    SET assetsdir=RL_DummyAssets-master\RL_DummyAssets-master
+    SET assetsdir=RL_NotSoDummyAssets-master\RL_NotSoDummyAssets-master
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
@@ -295,19 +292,17 @@ IF EXIST "%~dp0\RL_DummyAssets\README.md" (
     ECHO dummyassets: n >> log.txt
     ECHO Folder not found. Please download it to %~dp0 and unzip it . . .
     ECHO.
-    START /Wait "" "https://github.com/RocketLeagueMapmaking/RL_DummyAssets"
+    START /Wait "" "https://github.com/RocketLeagueMapmaking/RL_NotSoDummyAssets"
     PAUSE
     GOTO NotAssets
 )
 
 :GotAssets
 
-
 REM Copy DummyAssets into the UDK folder using Robocopy
 TIMEOUT /T 1 > NUL
 ECHO Copying Dummy Assets into UDK . . .
 ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
-ECHO.
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
 
@@ -319,23 +314,48 @@ SET /p steamepic="Steam or Epic Launcher (s/e): "
 
 :NotRL
 ECHO.
-set "process=RocketLeague.exe"
-set "program=Rocket League"
-CALL :fGetExecutablePath
-CALL :fSetRLDir "%executablePath%"
-ECHO Looking in %rldir% . . .
-ECHO.
-IF EXIST "%rldir%\Binaries\Win64\RocketLeague.exe" (
-    ECHO rldir: y >> log.txt
-    ECHO Got it^^!
-    GOTO GotRL
-) ELSE (
-    REM Retry if you typed the wrong thing or if it's not there
-    ECHO rldir: n >> log.txt
-    GOTO NotRL
+ECHO Locating Rocket League . . .
+SETLOCAL
+SET rldir=
+set "executablePath="
+
+for /f "usebackq delims=" %%p in (`wmic process where "name='RocketLeague.exe'"
+                                   get executablePath /value 2^>nul ^| findstr ^=`) do (
+  set %%p
 )
 
+IF DEFINED executablePath (
+  ECHO.
+  PUSHD %~dp0
+  ECHO Found "%executablePath%"
+  CALL :getFolder "%executablePath%"
+  :GotFolder
+  CD /D "%rldir%"
+  CD ..
+  CD ..
+  SET "rldir=%cd%"
+  ECHO "%rldir%"
+  POPD
+  ECHO.
+  GOTO GotRL
+)^
+ELSE (
+  ECHO.
+  ECHO Please start Rocket League before continuing
+  ECHO.
+  PAUSE
+  GOTO NotRL
+)
+
+:getFolder
+SET folder=%~dp1
+SET "rldir=%folder%"
+GOTO GotFolder
+
 :GotRL
+ECHO Closing Rocket League . . .
+TASKKILL /im RocketLeague.exe > NUL
+TIMEOUT /T 5 > NUL
 ECHO.
 
 ECHO Creating mods folder in CookedPCConsole . . .
@@ -460,7 +480,6 @@ ECHO templatesdir: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ROBOCOPY "%~dp0\Goodies " "%udkrootdir%\Workshop\Template " /NFL /NDL /NJH /NJS UDK_Default.png
-ECHO.
 ECHO udkdefaultgrid: y >> log.txt
 TIMEOUT /T 1 > NUL
 
@@ -473,7 +492,6 @@ ECHO utopiabackup: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 REN "%udkrootdir%\Workshop\Labs_Utopia_P.upk" BACKUP_Labs_Utopia_P.upk > NUL
-ECHO.
 
 
 REM ############################################################################
@@ -497,12 +515,6 @@ ECHO Copying Hoops Template . . .
 ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH /NJS Template_Hoops.umap
 ECHO.
 ECHO templatehoops: y >> log.txt
-TIMEOUT /T 1 > NUL
-
-ECHO Copying Dropshot Template . . .
-ROBOCOPY "%~dp0\Goodies\Templates " "%udkdir%\Engine\Content\Maps\Templates " /NFL /NDL /NJH /NJS Template_Dropshot.umap
-ECHO.
-ECHO templatedropshot: y >> log.txt
 TIMEOUT /T 1 > NUL
 
 ECHO Copying Test Template . . .
@@ -560,7 +572,3 @@ REM This is the end :'(
 :TheEnd
 PAUSE
 EXIT
-
-:getUdkFolder
-SET folder=%~dp1
-SET "udkdir=%folder%"
