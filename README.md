@@ -9,7 +9,9 @@
 ![](https://i.imgur.com/PObnykE.png)
 
 ## Download UDK from Google Drive:
-* UDK 2015-02 https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing
+* UDK 2015-02 hosted by Mr. Swaggles: https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing
+* UDK 2015-02 hosted by ModDB: https://www.moddb.com/downloads/february-2015-unreal-development-kit-udk
+* md5: `790744c95a74626e7c381ccf13c88f9d`
 * Using the .bat script will help you with the installation process as well
 * Install with the default settings, using an Empty Game
 
