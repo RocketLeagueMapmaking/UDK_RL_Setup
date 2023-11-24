@@ -1,12 +1,10 @@
 # PLEASE READ EVERYTHING BELOW
-**UDK_RL_Setup.bat** is a script that will set up the entire UDK environment as it should be for Rocket League MapMaking, from start to finish. **Simply download a few things and run the script!** 
+**UDK_RL_Setup.bat** is a script that will set up the entire UDK environment as it should be for Rocket League MapMaking, from start to finish. **Simply download and run the script!** 
 
-## Download and Unzip this and two other repositories from GitHub:
+## Download and Unzip this repository from GitHub:
 ![](https://i.imgur.com/OUT62cw.png)
 * Download this repository and Unzip it
 * Put the UDK Installer (link below) in the /UDK_RL_Setup/ folder (if you don't already have UDK installed)
-* **Download and Unzip** https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes. Place the unzipped folder inside /UDK_RL_Setup/ after downloading
-* **Download and Unzip** https://github.com/RocketLeagueMapmaking/RL_DummyAssets. Place the unzipped folder inside /UDK_RL_Setup/ after downloading
 
 ![](https://i.imgur.com/PObnykE.png)
 
