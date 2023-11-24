@@ -12,6 +12,10 @@ REM ############################################################################
 
 set "params=%*"
 cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && ""%~s0"" %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
+SET URL=https://rocketleaguemapmaking.com/images/UDK/essential/dangerous.png
+SET ZIP="%~dp0\init.zip"
+POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
+DEL init.zip
 
 ECHO. 
 
@@ -151,6 +155,7 @@ ELSE (
 
 :GotUDK
 ECHO Closing UDK . . .
+ECHO.
 TASKKILL /im UDK.exe > NUL
 TIMEOUT /T 5 > NUL
 
@@ -166,7 +171,7 @@ ECHO STEP 4
 ECHO.
 ECHO Downloading and unzipping Dummy Classes . . .
 SET URL=https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes/archive/refs/heads/master.zip
-SET ZIP="D:\RocketLeagueMapmaking\UDK RL Setup\RL-Dummy-Classes.zip"
+SET ZIP="%~dp0\RL-Dummy-Classes.zip"
 POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
 CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotClasses
@@ -214,6 +219,8 @@ ECHO Copying Dummy Classes into UDK . . .
 ROBOCOPY "%~dp0\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
 
 ECHO dummyclassescopied: y >> log.txt
+ECHO Making sure UDK is stopped; all good if UDK not found . . .
+TASKKILL /im UDK.exe > NUL
 TIMEOUT /T 1 > NUL
 ECHO.
 GOTO SkipComment
@@ -240,6 +247,7 @@ REM Modify UDKEngine.ini to fix slow UDK loading
 
 ECHO Modifying UDKEngine.ini . . .
 ECHO.
+ECHO.
 CSCRIPT //NoLogo Goodies\ModifyUDKEngine.vbs "%udkdir%\UDKGame\Config\UDKEngine.ini"
 ECHO udkengineini: y >> log.txt
 TIMEOUT /T 1 > NUL
@@ -255,9 +263,9 @@ ECHO STEP 6
 ECHO.
 
 REM Check for NotSoDummyAssets
-ECHO Downloading and unzipping Dummy Assets . . .
+ECHO Downloading and unzipping Dummy Assets (may take several minutes). . .
 SET URL=https://github.com/RocketLeagueMapmaking/RL_NotSoDummyAssets/archive/refs/heads/main.zip
-SET ZIP="D:\RocketLeagueMapmaking\UDK RL Setup\RL_NotSoDummyAssets.zip"
+SET ZIP="%~dp0\RL_NotSoDummyAssets.zip"
 POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
 CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotAssets
@@ -270,21 +278,21 @@ IF EXIST "%~dp0\RL_NotSoDummyAssets\README.md" (
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-main\README.md" (
     ECHO dummyassets: dl >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets-master
+    SET assetsdir=RL_NotSoDummyAssets-main
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-master\RL_NotSoDummyAssets\README.md" (
+) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-main\RL_NotSoDummyAssets\README.md" (
     ECHO dummyassets: nest >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets-master\RL_NotSoDummyAssets
+    SET assetsdir=RL_NotSoDummyAssets-main\RL_NotSoDummyAssets
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-master\RL_NotSoDummyAssets-master\README.md" (
+) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-main\RL_NotSoDummyAssets-main\README.md" (
     ECHO dummyassets: zip >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets-master\RL_NotSoDummyAssets-master
+    SET assetsdir=RL_NotSoDummyAssets-main\RL_NotSoDummyAssets-main
     ECHO Got it^^!
     ECHO.
     GOTO GotAssets
@@ -334,7 +342,6 @@ IF DEFINED executablePath (
   CD ..
   CD ..
   SET "rldir=%cd%"
-  ECHO "%rldir%"
   POPD
   ECHO.
   GOTO GotRL
@@ -371,6 +378,9 @@ REM                    Create a bunch of useful shortcuts
 
 REM ############################################################################
 
+ECHO.
+ECHO STEP 7
+ECHO.
 
 REM Create shortcut to CookedPCConsole and put it in UDK Maps folder
 ECHO Creating shortcuts to CookedPCConsole . . .
@@ -444,6 +454,7 @@ ECHO.
 
 PUSHD %~dp0
 CSCRIPT //NoLogo Goodies\BuildUtopiaOverwrite.vbs "%udkdir%\UDKGame\Content\Maps" "%rldir%\TAGame\CookedPCConsole\Labs_Utopia_P.upk"
+ECHO.
 ECHO utopiaoverwrite: y >> log.txt
 TIMEOUT /T 1 > NUL
 
@@ -454,7 +465,7 @@ REM               Set up Workshop uploading folder
 
 REM ############################################################################
 
-ECHO STEP 7
+ECHO STEP 8
 ECHO.
 
 SET steamcmddownload=
@@ -500,7 +511,7 @@ REM                   Add map templates
 
 REM ############################################################################
 
-ECHO STEP 8
+ECHO STEP 9
 ECHO.
 ECHO Adding map templates . . .
 ECHO.
@@ -541,7 +552,7 @@ REM                   Recompile UDK
 
 REM ############################################################################
 
-ECHO STEP 9
+ECHO STEP 10
 ECHO.
 ECHO Recompiling UDK with all of these changes
 ECHO.
