@@ -13,8 +13,8 @@ REM ############################################################################
 set "params=%*"
 cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && ""%~s0"" %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
 SET URL=https://rocketleaguemapmaking.com/images/UDK/essential/dangerous.png
-SET ZIP="%~dp0\init.zip"
-POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
+SET ZIP="%~dp0init.zip"
+POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
 DEL init.zip
 
 ECHO. 
@@ -171,8 +171,8 @@ ECHO STEP 4
 ECHO.
 ECHO Downloading and unzipping Dummy Classes . . .
 SET URL=https://github.com/RocketLeagueMapmaking/RL-Dummy-Classes/archive/refs/heads/master.zip
-SET ZIP="%~dp0\RL-Dummy-Classes.zip"
-POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
+SET ZIP="%~dp0RL-Dummy-Classes.zip"
+POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
 CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotClasses
 ECHO.
@@ -265,8 +265,8 @@ ECHO.
 REM Check for NotSoDummyAssets
 ECHO Downloading and unzipping Dummy Assets (may take several minutes). . .
 SET URL=https://github.com/RocketLeagueMapmaking/RL_NotSoDummyAssets/archive/refs/heads/main.zip
-SET ZIP="%~dp0\RL_NotSoDummyAssets.zip"
-POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
+SET ZIP="%~dp0RL_NotSoDummyAssets.zip"
+POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
 CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotAssets
 ECHO.
