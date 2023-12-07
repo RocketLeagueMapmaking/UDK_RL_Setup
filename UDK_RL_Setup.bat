@@ -263,9 +263,9 @@ ECHO STEP 6
 ECHO.
 
 REM Check for NotSoDummyAssets
-ECHO Downloading and unzipping Dummy Assets (may take several minutes). . .
-SET URL=https://github.com/RocketLeagueMapmaking/RL_NotSoDummyAssets/archive/refs/heads/main.zip
-SET ZIP="%~dp0RL_NotSoDummyAssets.zip"
+ECHO Downloading and unzipping Dummy Assets (6.6GB file, may take several minutes). . .
+SET URL=https://rocketleaguemapmaking.com/resources/RL_NotSoDummyAssets-main.zip
+SET ZIP="%~dp0RL_NotSoDummyAssets-main.zip"
 POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
 CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotAssets
@@ -298,9 +298,9 @@ IF EXIST "%~dp0\RL_NotSoDummyAssets\README.md" (
     GOTO GotAssets
 ) ELSE (
     ECHO dummyassets: n >> log.txt
-    ECHO Folder not found. Please download it to %~dp0 and unzip it . . .
+    ECHO RL_NotSoDummyAssets not found. Please download to %~dp0 and unzip it . . .
     ECHO.
-    START /Wait "" "https://github.com/RocketLeagueMapmaking/RL_NotSoDummyAssets"
+    START /Wait "" "https://rocketleaguemapmaking.com/resources/downloads.html"
     PAUSE
     GOTO NotAssets
 )
