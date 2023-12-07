@@ -263,7 +263,7 @@ ECHO STEP 6
 ECHO.
 
 REM Check for NotSoDummyAssets
-ECHO Downloading and unzipping Dummy Assets (6.6GB file, may take several minutes). . .
+ECHO Downloading and unzipping Dummy Assets (6.3GB file, may take several minutes). . .
 SET URL=https://rocketleaguemapmaking.com/resources/RL_NotSoDummyAssets-main.zip
 SET ZIP="%~dp0RL_NotSoDummyAssets-main.zip"
 POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
