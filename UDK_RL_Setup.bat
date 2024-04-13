@@ -35,7 +35,7 @@ ECHO.
 TIMEOUT /T 1 > NUL
 ECHO You can stop at any point by closing the window
 ECHO.
-ECHO v20231123 > log.txt
+ECHO v20240413 > log.txt
 PAUSE
 ECHO.
 
@@ -263,14 +263,19 @@ ECHO STEP 6
 ECHO.
 
 REM Check for NotSoDummyAssets
-ECHO Downloading and unzipping Dummy Assets (6.3GB file, may take several minutes). . .
-SET URL=https://rocketleaguemapmaking.com/resources/RL_NotSoDummyAssets-main.zip
-SET ZIP="%~dp0RL_NotSoDummyAssets-main.zip"
-POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
-REM POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
-CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
 :NotAssets
-ECHO.
+SET nsdadownload=
+SET /p nsdadownload="Would you like to download the Not So Dummy Assets package? (y/n): "
+if not defined nsdadownload goto :NotAssets
+IF "%nsdadownload%" == "y" (
+    ECHO Downloading and unzipping Dummy Assets ^(6.3GB file, may take several minutes^). . .
+    SET URL=https://rocketleaguemapmaking.com/resources/RL_NotSoDummyAssets-main.zip
+    SET ZIP="%~dp0RL_NotSoDummyAssets-main.zip"
+    POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
+    REM POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
+    CSCRIPT //NoLogo Goodies\UnzipArchive.vbs %ZIP% "%~dp0"
+    ECHO.
+)
 
 SET assetsdir=
 IF EXIST "%~dp0\RL_NotSoDummyAssets\README.md" (
@@ -299,7 +304,7 @@ IF EXIST "%~dp0\RL_NotSoDummyAssets\README.md" (
     GOTO GotAssets
 ) ELSE (
     ECHO dummyassets: n >> log.txt
-    ECHO RL_NotSoDummyAssets not found. Please download to %~dp0 and unzip it . . .
+    ECHO Unzipped RL_NotSoDummyAssets not found. Please download to %~dp0 and unzip it . . .
     ECHO.
     START /Wait "" "https://rocketleaguemapmaking.com/resources/downloads.html"
     PAUSE
