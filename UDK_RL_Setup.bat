@@ -265,15 +265,23 @@ REM                       Set up project folders
 REM ############################################################################
 
 ECHO STEP 6
-ECHO.
 
 REM Check for NotSoDummyAssets
 :NotAssets
+ECHO.
+SET havensda=
+SET /p havensda="Have you already downloaded the Not So Dummy Assets? (y/n): "
+IF not DEFINED havensda goto :NotAssets
+IF "%havensda%" == "y" (
+    GOTO HaveAssets
+)
+
+ECHO.
 SET nsdadownload=
-SET /p nsdadownload="Would you like to download the Not So Dummy Assets package? (y/n): "
-if not defined nsdadownload goto :NotAssets
+SET /p nsdadownload="Download the Not So Dummy Assets package (6.3 GB)? (y/n): "
+IF not DEFINED nsdadownload goto :NotAssets
 IF "%nsdadownload%" == "y" (
-    ECHO Downloading and unzipping Dummy Assets ^(6.3GB file, may take several minutes^). . .
+    ECHO Downloading and unzipping Dummy Assets ^(large file, please wait several minutes^). . .
     SET URL=https://rocketleaguemapmaking.com/resources/RL_NotSoDummyAssets-main.zip
     SET ZIP="%~dp0RL_NotSoDummyAssets-main.zip"
     POWERSHELL -command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%ZIP%')"
@@ -282,46 +290,49 @@ IF "%nsdadownload%" == "y" (
     ECHO.
 )
 
+:HaveAssets
 SET assetsdir=
-IF EXIST "%~dp0\RL_NotSoDummyAssets\README.md" (
-    ECHO dummyassets: git >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets
-    ECHO Got it^^!
-    ECHO.
-    GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-main\README.md" (
-    ECHO dummyassets: dl >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets-main
-    ECHO Got it^^!
-    ECHO.
-    GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-main\RL_NotSoDummyAssets\README.md" (
-    ECHO dummyassets: nest >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets-main\RL_NotSoDummyAssets
-    ECHO Got it^^!
-    ECHO.
-    GOTO GotAssets
-) ELSE IF EXIST "%~dp0\RL_NotSoDummyAssets-main\RL_NotSoDummyAssets-main\README.md" (
-    ECHO dummyassets: zip >> log.txt
-    SET assetsdir=RL_NotSoDummyAssets-main\RL_NotSoDummyAssets-main
-    ECHO Got it^^!
-    ECHO.
-    GOTO GotAssets
-) ELSE (
-    ECHO dummyassets: n >> log.txt
-    ECHO Unzipped RL_NotSoDummyAssets not found. Please download to %~dp0 and unzip it . . .
-    ECHO.
-    START /Wait "" "https://rocketleaguemapmaking.com/resources/downloads.html"
-    PAUSE
-    GOTO NotAssets
+for /d %%i in ("%~dp0*RL_NotSoDummyAssets*") do (
+    if exist "%%i\README.md" (
+        ECHO dummyassets: y >> log.txt
+        CD "%%i"
+        PUSHD "%%i"
+        CD ..
+        GOTO GotAssets
+    ) ELSE IF EXIST "%%i\RL_NotSoDummyAssets\README.md" (
+        ECHO dummyassets: yy >> log.txt
+        CD "%%i"
+        CD RL_NotSoDummyAssets
+        PUSHD "%%i\RL_NotSoDummyAssets"
+        CD ..
+        CD ..
+        GOTO GotAssets
+    )
 )
 
-:GotAssets
+REM TODO Unzip file if .zip is found
+REM IF EXIST "%~dp0*RL_NotSoDummyAssets*.zip"(
+REM     CSCRIPT //NoLogo Goodies\UnzipArchive.vbs *RL_NotSoDummyAssets*.zip "%~dp0"
+REM     GOTO HaveAssets
+REM )
 
+ECHO dummyassets: n >> log.txt
+ECHO Unzipped RL_NotSoDummyAssets not found. Please download to %~dp0 and unzip . . .
+ECHO.
+START /Wait "" "https://rocketleaguemapmaking.com/resources/downloads.html"
+PAUSE
+GOTO NotAssets
+
+:GotAssets
+ECHO.
+POPD
+SET "assetsdir=%cd%"
+CD "%~dp0"
+ECHO Found "%assetsdir%"
 REM Copy DummyAssets into the UDK folder using Robocopy
 TIMEOUT /T 1 > NUL
 ECHO Copying Dummy Assets into UDK . . .
-ROBOCOPY "%~dp0\%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
+ROBOCOPY "%assetsdir% " "%udkdir%\UDKGame\Content\DummyAssets " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
 ECHO dummyassetscopied: y >> log.txt
 TIMEOUT /T 1 > NUL
 
