@@ -35,7 +35,9 @@ ECHO.
 TIMEOUT /T 1 > NUL
 ECHO You can stop at any point by closing the window
 ECHO.
-ECHO v20240413 > log.txt
+ECHO Please read ALL instructions in this window
+ECHO.
+ECHO v20240730 > log.txt
 PAUSE
 ECHO.
 
@@ -51,8 +53,10 @@ ECHO.
 ECHO Once you're ready we'll start the UDK install . . .
 ECHO.
 
+:Beginning
 SET udkinstalled=
 SET /p udkinstalled="Do you already have UDK installed? (y/n): "
+IF not DEFINED udkinstalled goto :Beginning
 IF "%udkinstalled%" == "y" (
     ECHO udkinstalled: y >> log.txt
     ECHO.
@@ -88,6 +92,7 @@ IF EXIST UDKInstall-2015-02.exe (
 :DownloadUDK
 SET udkdownload=
 SET /p udkdownload="Would you like to download the UDK Installer? (y/n): "
+IF not DEFINED udkdownload goto :DownloadUDK
 IF "%udkdownload%" == "y" (
     START "" "https://drive.google.com/file/d/1ozqiKBgcWSgcq7X5J6g0AErKyevjMRwd/view?usp=sharing"
     ECHO.
@@ -105,19 +110,19 @@ IF "%udkdownload%" == "y" (
 
 :GotUDKInstaller
 ECHO.
-ECHO 1 - Select Empty Game for the Project type ^(Starter Content will break Rocket League^)
+ECHO 1 - Select EMPTY GAME for the Project type ^(Starter Content will break Rocket League^)
 TIMEOUT /T 1 > NUL
 ECHO.
 ECHO 2 - Type in a Project Name with NO SPACES such as RLMM, RLMods, mods, or leave it as Custom
 TIMEOUT /T 1 > NUL
 ECHO.
-ECHO 3 - Make sure the Install Location matches the Project Name
+ECHO 3 - Ensure Install Location matches the Project Name
 TIMEOUT /T 1 > NUL
 ECHO.
 ECHO 4 - Ignore the Perforce server and offers
 TIMEOUT /T 1 > NUL
 ECHO.
-ECHO 5 - Continue onward once UDK finishes installing ^(2-5 minutes^). Select "Launch UDK" when it finishes.
+ECHO 5 - Continue once UDK finishes installing ^(2-5 minutes^). Select "Launch UDK" when it finishes.
 TIMEOUT /T 1 > NUL
 ECHO.
 ECHO udkinstalled: y >> log.txt
@@ -219,7 +224,7 @@ ECHO Copying Dummy Classes into UDK . . .
 ROBOCOPY "%~dp0\%classesdir% " "%udkdir%\Development\Src " /E /NFL /NDL /NJH /NJS /xf README.md /xd .git
 
 ECHO dummyclassescopied: y >> log.txt
-ECHO Making sure UDK is stopped; all good if UDK not found . . .
+ECHO Making sure UDK is stopped. Ignore any ERROR on the next line . . .
 TASKKILL /im UDK.exe > NUL
 TIMEOUT /T 1 > NUL
 ECHO.
@@ -331,7 +336,7 @@ ECHO.
 ECHO Locating Rocket League . . .
 SETLOCAL
 SET rldir=
-set "executablePath="
+SET "executablePath="
 
 for /f "usebackq delims=" %%p in (`wmic process where "name='RocketLeague.exe'"
                                    get executablePath /value 2^>nul ^| findstr ^=`) do (
@@ -474,9 +479,11 @@ REM ############################################################################
 ECHO STEP 8
 ECHO.
 
+:NotSteamCmd
 SET steamcmddownload=
 SET /p steamcmddownload="Would you like to download SteamCMD (for uploading maps)? (y/n): "
-    ECHO.
+IF not DEFINED steamcmddownload goto :NotSteamCmd
+ECHO.
 IF "%steamcmddownload%" == "y" (
     ECHO steamcmd: y >> log.txt
     START "" "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"
@@ -565,8 +572,8 @@ ECHO.
 CD /D "%udkdir%\Binaries\Win64"
 START UDK.exe make -full
 ECHO.
-ECHO The very bottom line should read: Success 0 error(s)
-ECHO We don't care about the warnings
+ECHO The very bottom line must read: Success 0 error(s), XX warnings
+ECHO We do not care about the warnings
 ECHO.
 ECHO Close that console window
 ECHO unrealfrontend: y >> log.txt
