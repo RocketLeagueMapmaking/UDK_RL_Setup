@@ -12,7 +12,7 @@ REM ############################################################################
 
 set "params=%*"
 cd /d "%~dp0" && ( if exist "%temp%\getadmin.vbs" del "%temp%\getadmin.vbs" ) && fsutil dirty query %systemdrive% 1>nul 2>nul || (  echo Set UAC = CreateObject^("Shell.Application"^) : UAC.ShellExecute "cmd.exe", "/k cd ""%~sdp0"" && ""%~s0"" %params%", "", "runas", 1 >> "%temp%\getadmin.vbs" && "%temp%\getadmin.vbs" && exit /B )
-SET URL=https://rocketleaguemapmaking.com/images/UDK/essential/dangerous.png
+SET URL=https://rocketleaguemapmaking.com/images/udk/essential/dangerous.png
 SET ZIP="%~dp0init.zip"
 POWERSHELL -command "Invoke-WebRequest '%URL%' -OutFile '%ZIP%'"
 DEL init.zip
