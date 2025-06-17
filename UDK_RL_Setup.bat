@@ -37,7 +37,7 @@ ECHO You can stop at any point by closing the window
 ECHO.
 ECHO Please read ALL instructions in this window
 ECHO.
-ECHO v20240730 > log.txt
+ECHO v20250616 > log.txt
 PAUSE
 ECHO.
 
@@ -152,10 +152,14 @@ IF DEFINED executablePath (
 )^
 ELSE (
   ECHO.
-  ECHO Please start UDK before continuing
+  ECHO Could not automagically find UDK . . .
+  ECHO Please start UDK, start Task Manager, right click BUILT WITH UDK and choose Open file location
+  ECHO Navigate up two folder levels to the Project Name (e.g. RLMM)
+  ECHO.
+  SET /p udkdir="Please enter the full file path here (e.g. C:\UDK\RLMM): "
   ECHO.
   PAUSE
-  GOTO NotUDK
+  GOTO GotUDK
 )
 
 :GotUDK
