@@ -374,10 +374,14 @@ IF DEFINED executablePath (
 )^
 ELSE (
   ECHO.
-  ECHO Please start Rocket League before continuing
+  ECHO Could not automagically find RL . . .
+  ECHO Please start RL, start Task Manager, right click Rocket League and choose Open file location
+  ECHO Navigate up two folder levels to rocketleague
+  ECHO.
+  SET /p rldir="Please enter the full file path here (e.g. C:\Program Files (x86)\Steam\steamapps\common\rocketleague): "
   ECHO.
   PAUSE
-  GOTO NotRL
+  GOTO GotRL
 )
 
 :getFolder
